@@ -57,7 +57,7 @@ pnpm build      # build every package + the studio
 - **Real holes for eyes** — the eyes are pierced through the body with a mask, so they clip naturally at the silhouette's edge, exactly like the reference this engine was measured from
 - **Pure & deterministic** — the engine has no clock, no DOM, no dependencies; freeze any state at any instant for thumbnails, SSR, or pixel-exact exports
 - **Studio included** — timeline editor for building animation montages, cycle manager, PNG/GIF export, 3 languages (Français / English / 简体中文)
-- **New in the studio:** one-click **Presets** (Classic, Cosmos, Candy, Citrus, Forest, Royal), a 🎲 **Random** button, and **share links** that carry a whole look in the URL
+- **New in the studio:** **24 one-click Presets** (Classic, Cosmos, Candy, Sakura, Lava, Panda, Cyber, Ghost… — together they cover all 20 shapes), a 🎲 **Random** button, and **share links** that carry a whole look in the URL
 
 ---
 

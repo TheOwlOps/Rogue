@@ -26,7 +26,25 @@ const PRESETS: Array<{ name: string; shape: string; color: string; expression: s
   { name: 'Candy', shape: 'coeur', color: 'corail', expression: 'amoureux' },
   { name: 'Citrus', shape: 'soleil', color: 'citron', expression: 'ebloui' },
   { name: 'Forest', shape: 'blob', color: 'emeraude', expression: 'zen' },
-  { name: 'Royal', shape: 'diamant', color: 'prune', expression: 'determine' }
+  { name: 'Royal', shape: 'diamant', color: 'prune', expression: 'determine' },
+  { name: 'Sakura', shape: 'fleur', color: 'rose', expression: 'heureux' },
+  { name: 'Ocean', shape: 'goutte', color: 'ciel', expression: 'attentif' },
+  { name: 'Lava', shape: 'triangle', color: 'rouge', expression: 'furieux' },
+  { name: 'Honey', shape: 'hexagone', color: 'ambre', expression: 'excite' },
+  { name: 'Grape', shape: 'galet', color: 'violet', expression: 'sournois' },
+  { name: 'Mint', shape: 'squircle', color: 'menthe', expression: 'curieux' },
+  { name: 'Storm', shape: 'nuage', color: 'ardoise', expression: 'mefiant' },
+  { name: 'Panda', shape: 'ovale', color: 'creme', expression: 'somnolent' },
+  { name: 'Peachy', shape: 'poire', color: 'peche', expression: 'timide' },
+  { name: 'Cyber', shape: 'carre', color: 'cyan', expression: 'confus' },
+  { name: 'Vamp', shape: 'capsule', color: 'bordeaux', expression: 'moqueur' },
+  { name: 'Lemon', shape: 'pilule', color: 'or', expression: 'surpris' },
+  { name: 'Matcha', shape: 'pentagone', color: 'kaki', expression: 'blase' },
+  { name: 'Choco', shape: 'octogone', color: 'chocolat', expression: 'fier' },
+  { name: 'Bubblegum', shape: 'cercle', color: 'fuchsia', expression: 'hilare' },
+  { name: 'Lagoon', shape: 'capsule', color: 'turquoise', expression: 'bahi' },
+  { name: 'Sunset', shape: 'ovale', color: 'orange', expression: 'triste' },
+  { name: 'Ghost', shape: 'blob', color: 'argent', expression: 'effraye' }
 ]
 
 function applyPreset(p: (typeof PRESETS)[number]) {
