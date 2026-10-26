@@ -25,6 +25,7 @@ In the first minute you can:
 - 🎬 **Open Animations** — all 66 animations on a timeline; build your own montage, export it as a GIF
 - 💬 **Open the [chat demo](https://theowlops.github.io/Rogue/chat.html)** — send the bot a message and watch it think → work → type → celebrate; or drive it with the phase chips
 - 🖼️ **See everything at once** — [the state board](https://theowlops.github.io/Rogue/#planche) with all 66 states side by side
+- 🎉 **Crash the [Avatar Party](https://theowlops.github.io/Rogue/party.html)** — a dance floor of up to 24 bots, each with a random face and its own groove; click one to make it celebrate, conduct the whole floor with Dance / Chill / Celebrate
 
 ## What makes it tick
 

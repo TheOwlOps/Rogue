@@ -21,7 +21,8 @@ const en: typeof fr = {
     customize: 'Customise',
     animations: 'Animations',
     settings: 'Settings',
-    chat: 'Chat demo'
+    chat: 'Chat demo',
+    party: 'Party'
   },
 
   panel: {

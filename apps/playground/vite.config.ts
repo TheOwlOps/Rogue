@@ -26,7 +26,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
-        chat: fileURLToPath(new URL('./chat.html', import.meta.url))
+        chat: fileURLToPath(new URL('./chat.html', import.meta.url)),
+        party: fileURLToPath(new URL('./party.html', import.meta.url))
       }
     }
   }

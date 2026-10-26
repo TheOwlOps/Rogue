@@ -171,6 +171,28 @@ const muted = ref<ViewId | null>(null)
           {{ t('rail.chat') }}
         </span>
       </li>
+      <!-- Meme principe que la demo chat : la fete des avatars est une page
+           a part (`party.html`), un lien et pas une vue du rail. -->
+      <li class="group relative">
+        <a
+          href="party.html"
+          class="peer flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl text-[var(--muted)] transition hover:bg-black/5 hover:text-[var(--ink)]"
+          :aria-label="t('rail.party')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M12 2.2l2.9 6.2 6.8.8-5 4.7 1.3 6.7L12 17.3l-6 3.3 1.3-6.7-5-4.7 6.8-.8z"
+            />
+          </svg>
+        </a>
+        <span
+          class="pointer-events-none absolute top-full left-1/2 z-10 mt-2 -translate-x-1/2 rounded-lg bg-[var(--ink)] px-2.5 py-1.5 text-xs whitespace-nowrap text-[var(--paper)] opacity-0 transition peer-focus-visible:opacity-100 group-hover:opacity-100 lg:top-1/2 lg:left-full lg:mt-0 lg:ml-2 lg:-translate-y-1/2 lg:translate-x-1 lg:peer-focus-visible:translate-x-0 lg:group-hover:translate-x-0"
+          role="tooltip"
+        >
+          {{ t('rail.party') }}
+        </span>
+      </li>
     </ul>
   </nav>
 </template>

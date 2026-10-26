@@ -26,7 +26,8 @@ const zh: typeof fr = {
     customize: '个性化',
     animations: '动画',
     settings: '设置',
-    chat: '聊天演示'
+    chat: '聊天演示',
+    party: '派对'
   },
 
   panel: {

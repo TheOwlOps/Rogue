@@ -6,7 +6,8 @@ import {
   SHAPES,
   createAvatar,
   type AvatarHandle,
-  type ChatPhase
+  type ChatPhase,
+  type StateId
 } from '@theowlops/rogue-avatar-core'
 
 /**
@@ -125,6 +126,21 @@ function pokePhase(p: (typeof PHASES)[number]) {
   setPhase(p.id, p.status)
 }
 
+/**
+ * Poke the avatar: a one-shot reaction, then back to whatever phase it was
+ * in. Ignored mid-flow — a bot streaming an answer shouldn't be interrupted
+ * by a poke.
+ */
+const POKE_REACTIONS: StateId[] = ['shocked', 'laugh', 'love', 'dizzy', 'sparkle']
+let pokeTimer = 0
+function pokeAvatar() {
+  if (!avatar || busy.value) return
+  const reaction = POKE_REACTIONS[Math.floor(Math.random() * POKE_REACTIONS.length)]!
+  avatar.setState(reaction)
+  clearTimeout(pokeTimer)
+  pokeTimer = window.setTimeout(() => avatar?.setPhase(activePhase.value), 1500)
+}
+
 onMounted(() => {
   if (!host.value) return
   avatar = createAvatar(host.value, { size: 56, paper: '#ffffff' })
@@ -141,14 +157,22 @@ onBeforeUnmount(() => {
   <div class="flex min-h-screen flex-col items-center bg-[var(--paper)] px-4 py-6 text-[var(--ink)]">
     <div class="w-full max-w-md">
       <div class="mb-4 flex items-baseline justify-between">
-        <a href="index.html" class="text-sm text-[var(--muted)] underline-offset-2 hover:underline">← Studio</a>
+        <span class="flex gap-4">
+          <a href="index.html" class="text-sm text-[var(--muted)] underline-offset-2 hover:underline">← Studio</a>
+          <a href="party.html" class="text-sm text-[var(--muted)] underline-offset-2 hover:underline">Party 🎉</a>
+        </span>
         <span class="text-xs tracking-wide text-[var(--muted)]">ROGUE · CHAT DEMO</span>
       </div>
 
       <div class="overflow-hidden rounded-3xl border border-[var(--line)] bg-white shadow-sm">
         <!-- header: the avatar, alive -->
         <div class="flex items-center gap-3 border-b border-[var(--line)] px-4 py-3">
-          <div ref="host" class="h-14 w-14 flex-none"></div>
+          <div
+            ref="host"
+            class="h-14 w-14 flex-none cursor-pointer"
+            title="Poke me!"
+            @click="pokeAvatar"
+          ></div>
           <div class="min-w-0">
             <p class="truncate font-semibold">Rogue Bot</p>
             <p class="text-sm text-[var(--muted)]">{{ status }}</p>

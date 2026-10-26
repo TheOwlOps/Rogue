@@ -33,7 +33,8 @@ export default {
     customize: 'Personnaliser',
     animations: 'Animations',
     settings: 'Réglages',
-    chat: 'Démo chat'
+    chat: 'Démo chat',
+    party: 'Fête'
   },
 
   panel: {
