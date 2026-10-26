@@ -357,17 +357,21 @@ export const EXPRESSIONS: BotExpression[] = [
     eyes: [eye(0.34, 0.44, 18), eye(0.34, 0.44, 18)]
   },
   {
-    // petit, serre, regard en bas a cote : la gene
+    // petit, serre, regard en bas a cote : la gene.
+    // Yaw ramene de -20 a -17 : a -20 la correction sur la `goutte` montait a
+    // 13,7 unites pendant le morph, trop pres de la borne d'oscillation (14).
     id: 'gene',
-    gaze: { yaw: -20, pitch: 14, roll: -5 },
+    gaze: { yaw: -17, pitch: 14, roll: -5 },
     split: 14.5,
     eyes: pair(0.18, 0.26, -12)
   },
   {
-    // pack 3, les espiegles : regard de cote et arcs joyeux, il prepare un coup
+    // pack 3, les espiegles : regard de cote et arcs joyeux, il prepare un coup.
+    // Le yaw reste a -15 : a -20 la correction sur la `goutte` rebroussait de
+    // 14,8 unites pendant le morph (borne du test d'oscillation : 14).
     id: 'espiegle',
-    gaze: { yaw: -20, pitch: 4, roll: -4 },
-    split: 16.5,
+    gaze: { yaw: -15, pitch: 4, roll: -3 },
+    split: 16,
     eyes: [eye(0.3, 0.16, 12), eye(0.3, 0.14, -12)]
   },
   {

@@ -310,7 +310,7 @@ describe('formes du personnalisateur', () => {
         `${forme.id} : morphs d expression`
       ).toBeLessThan(14)
     }
-    // le balayage couvre desormais 20 formes x 40 expressions : meme borne, plus de temps
+    // le balayage couvre desormais 20 formes x 52 expressions : meme borne, plus de temps
   }, 60_000)
 
   /**
