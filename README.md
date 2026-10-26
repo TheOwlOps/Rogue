@@ -9,6 +9,10 @@
 [![💬 Chat with it](https://img.shields.io/badge/💬_Chat_with_it-0fa36b?style=for-the-badge)](https://theowlops.github.io/Rogue/chat.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+<img src="docs/demo.gif" alt="The Rogue avatar in action: the galaxy state in the studio, the Avatar Party floor, the full state board, and a live chat where the bot thinks, works, types and celebrates" width="920" />
+
+*The studio's galaxy state · the Avatar Party · all 66 states on one board · the bot alive in a chat — [try it live](https://theowlops.github.io/Rogue/)*
+
 </div>
 
 ---
