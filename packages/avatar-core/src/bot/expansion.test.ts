@@ -26,11 +26,13 @@ describe('comptes du pack', () => {
     expect(STATES).toHaveLength(67) // 66 du catalogue + `swirl`, la transition
     expect(SEQUENCE).toHaveLength(66)
     expect(SHAPES).toHaveLength(20)
-    expect(EXPRESSIONS).toHaveLength(28)
+    expect(EXPRESSIONS).toHaveLength(40)
     expect(COLORS).toHaveLength(36)
-    expect(
-      NOUVEAUX_ETATS.length + (SHAPES.length - 8) + (EXPRESSIONS.length - 16) + (COLORS.length - 12)
-    ).toBe(100)
+    // 52 etats + 12 formes + 12 expressions + 24 couleurs du pack v0.2.
+    // Les expressions comptent 12 ici et non `EXPRESSIONS.length - 16` :
+    // un second pack de 12 visages a suivi (40 au catalogue), il ne fait
+    // pas partie des 100 entrees de celui-ci.
+    expect(NOUVEAUX_ETATS.length + (SHAPES.length - 8) + 12 + (COLORS.length - 12)).toBe(100)
   })
 
   it('donne a chaque nouvel etat une pose de vignette lisible', () => {

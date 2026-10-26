@@ -35,6 +35,18 @@ export type ExpressionId =
   | 'ebloui'
   | 'moqueur'
   | 'determine'
+  | 'clin'
+  | 'charmeur'
+  | 'rire'
+  | 'penseur'
+  | 'malin'
+  | 'fatigue'
+  | 'gourmand'
+  | 'robot'
+  | 'pirate'
+  | 'dodo'
+  | 'hypnotise'
+  | 'gene'
   | 'neutre'
   | 'attentif'
   | 'surpris'
@@ -254,6 +266,90 @@ export const EXPRESSIONS: BotExpression[] = [
     gaze: { yaw: 4, pitch: 12, roll: 0 },
     split: 17,
     eyes: pair(0.34, 0.18, 22)
+  },
+  {
+    // pack 2 : un oeil en tiret, l'autre ouvert — le clin d'oeil franc
+    id: 'clin',
+    gaze: { yaw: -8, pitch: 2, roll: 6 },
+    split: 16.5,
+    eyes: [eye(0.44, 0.09), eye(0.22, 0.42)]
+  },
+  {
+    // paupieres a mi-course et regard de cote : le charmeur
+    id: 'charmeur',
+    gaze: { yaw: 18, pitch: -4, roll: -3 },
+    split: 16.5,
+    eyes: pair(0.26, 0.36, 10, 0.55)
+  },
+  {
+    // un cran au-dessus d'hilare : arcs serres fort, tete rejetee en arriere
+    id: 'rire',
+    gaze: { yaw: 0, pitch: 18, roll: 0 },
+    split: 18,
+    eyes: pair(0.36, 0.1, 26)
+  },
+  {
+    // regard en haut a gauche, un oeil plisse : il reflechit
+    id: 'penseur',
+    gaze: { yaw: -18, pitch: -18, roll: -4 },
+    split: 16,
+    eyes: [eye(0.24, 0.2), eye(0.22, 0.4)]
+  },
+  {
+    // mi-clos satisfait, inclinaison douce : le malin sur de lui
+    id: 'malin',
+    gaze: { yaw: 10, pitch: 10, roll: 0 },
+    split: 16.5,
+    eyes: pair(0.32, 0.22, -8, 0.6)
+  },
+  {
+    // paupieres lourdes qui tombent vers l'exterieur, a bout de force
+    id: 'fatigue',
+    gaze: { yaw: 2, pitch: -4, roll: 0 },
+    split: 16,
+    eyes: pair(0.24, 0.38, -18, 0.5)
+  },
+  {
+    // arcs joyeux et regard qui plonge : il a vu le gateau
+    id: 'gourmand',
+    gaze: { yaw: -6, pitch: -8, roll: 0 },
+    split: 17,
+    eyes: pair(0.28, 0.15, 16)
+  },
+  {
+    // geometrie parfaite, regard droit, zero emotion : le robot
+    id: 'robot',
+    gaze: { yaw: 0, pitch: 0, roll: 0 },
+    split: 17,
+    eyes: pair(0.26, 0.26)
+  },
+  {
+    // un oeil ferme net, l'autre rond et vif, tete penchee : le pirate
+    id: 'pirate',
+    gaze: { yaw: 8, pitch: -2, roll: -10 },
+    split: 17,
+    eyes: [eye(0.3, 0.08), eye(0.3, 0.5)]
+  },
+  {
+    // presque ferme des deux cotes : il dort pour de bon
+    id: 'dodo',
+    gaze: { yaw: 4, pitch: -2, roll: 3 },
+    split: 15.5,
+    eyes: pair(0.2, 0.4, 0, 0.18)
+  },
+  {
+    // deux yeux inclines DANS LE MEME SENS : la tete lui tourne
+    id: 'hypnotise',
+    gaze: { yaw: -4, pitch: -6, roll: 12 },
+    split: 17.5,
+    eyes: [eye(0.34, 0.44, 18), eye(0.34, 0.44, 18)]
+  },
+  {
+    // petit, serre, regard en bas a cote : la gene
+    id: 'gene',
+    gaze: { yaw: -20, pitch: 14, roll: -5 },
+    split: 14.5,
+    eyes: pair(0.18, 0.26, -12)
   }
 ]
 

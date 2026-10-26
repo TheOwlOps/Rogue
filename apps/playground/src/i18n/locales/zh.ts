@@ -285,6 +285,18 @@ const zh: typeof fr = {
     ebloui: '眼花',
     moqueur: '调侃',
     determine: '坚定',
+    clin: '眨眼',
+    charmeur: '迷人',
+    rire: '大笑',
+    penseur: '思考者',
+    malin: '得意',
+    fatigue: '疲惫',
+    gourmand: '馋嘴',
+    robot: '机器人',
+    pirate: '海盗',
+    dodo: '熟睡',
+    hypnotise: '被催眠',
+    gene: '尴尬',
   }
 }
 

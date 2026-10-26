@@ -307,5 +307,17 @@ export default {
     ebloui: 'Ébloui',
     moqueur: 'Moqueur',
     determine: 'Déterminé',
+    clin: "Clin d'œil",
+    charmeur: 'Charmeur',
+    rire: 'Fou rire',
+    penseur: 'Penseur',
+    malin: 'Malin',
+    fatigue: 'Fatigué',
+    gourmand: 'Gourmand',
+    robot: 'Robot',
+    pirate: 'Pirate',
+    dodo: 'Dodo',
+    hypnotise: 'Hypnotisé',
+    gene: 'Gêné',
   }
 }

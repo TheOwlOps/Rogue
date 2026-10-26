@@ -282,6 +282,18 @@ const en: typeof fr = {
     ebloui: 'Dazzled',
     moqueur: 'Teasing',
     determine: 'Determined',
+    clin: 'Wink',
+    charmeur: 'Flirty',
+    rire: 'Cracking up',
+    penseur: 'Thinker',
+    malin: 'Smug',
+    fatigue: 'Tired',
+    gourmand: 'Yummy',
+    robot: 'Deadpan',
+    pirate: 'One-eyed',
+    dodo: 'Fast asleep',
+    hypnotise: 'Hypnotized',
+    gene: 'Embarrassed',
   }
 }
 
