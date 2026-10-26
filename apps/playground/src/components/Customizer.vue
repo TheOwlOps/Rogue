@@ -47,6 +47,26 @@ const PRESETS: Array<{ name: string; shape: string; color: string; expression: s
   { name: 'Ghost', shape: 'blob', color: 'argent', expression: 'effraye' }
 ]
 
+/**
+ * La bande « cute » : couleurs pastel ou bonbon, formes douces (cœur, fleur,
+ * nuage, poire…), visages heureux ou timides. Noms de personnages kawaii —
+ * ils restent en anglais dans les trois langues, comme les autres presets.
+ */
+const CUTE_PRESETS: Array<{ name: string; shape: string; color: string; expression: string }> = [
+  { name: 'Mochi', shape: 'galet', color: 'creme', expression: 'heureux' },
+  { name: 'Pudding', shape: 'poire', color: 'peche', expression: 'timide' },
+  { name: 'Cupcake', shape: 'fleur', color: 'rose', expression: 'excite' },
+  { name: 'Boba', shape: 'cercle', color: 'lavande', expression: 'reveur' },
+  { name: 'Mimi', shape: 'squircle', color: 'menthe', expression: 'zen' },
+  { name: 'Kiki', shape: 'etoile', color: 'ciel', expression: 'hilare' },
+  { name: 'Peach', shape: 'nuage', color: 'saumon', expression: 'bahi' },
+  { name: 'Bunny', shape: 'ovale', color: 'lilas', expression: 'amoureux' },
+  { name: 'Tofu', shape: 'carre', color: 'sable', expression: 'somnolent' },
+  { name: 'Berry', shape: 'blob', color: 'fuchsia', expression: 'curieux' },
+  { name: 'Waffle', shape: 'hexagone', color: 'ambre', expression: 'ebloui' },
+  { name: 'Momo', shape: 'goutte', color: 'corail', expression: 'moqueur' }
+]
+
 function applyPreset(p: (typeof PRESETS)[number]) {
   shape.value = p.shape
   color.value = p.color
@@ -103,6 +123,21 @@ async function share() {
     <div class="mt-2 grid grid-cols-3 gap-1.5">
       <BotTile
         v-for="p in PRESETS"
+        :key="p.name"
+        :label="p.name"
+        :selected="p.shape === shape && p.color === color && p.expression === expression"
+        :shape="p.shape"
+        :color="p.color"
+        :expression="p.expression"
+        :frozen-at="PREVIEW_AT"
+        @click="applyPreset(p)"
+      />
+    </div>
+
+    <h2 class="mt-5 text-sm font-semibold">{{ t('panel.cute') }} 🧸</h2>
+    <div class="mt-2 grid grid-cols-3 gap-1.5">
+      <BotTile
+        v-for="p in CUTE_PRESETS"
         :key="p.name"
         :label="p.name"
         :selected="p.shape === shape && p.color === color && p.expression === expression"

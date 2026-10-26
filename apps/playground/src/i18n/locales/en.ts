@@ -31,6 +31,7 @@ const en: typeof fr = {
     color: 'Colour',
     random: 'Random',
     presets: 'Presets',
+    cute: 'Cute',
     share: 'Copy share link',
     shared: 'Link copied!'
   },

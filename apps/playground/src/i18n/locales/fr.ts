@@ -48,6 +48,7 @@ export default {
     color: 'Couleur',
     random: 'Aléatoire',
     presets: 'Préréglages',
+    cute: 'Mignon',
     share: 'Copier le lien de partage',
     shared: 'Lien copié !'
   },

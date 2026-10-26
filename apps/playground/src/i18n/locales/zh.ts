@@ -36,6 +36,7 @@ const zh: typeof fr = {
     color: '颜色',
     random: '随机',
     presets: '预设',
+    cute: '可爱',
     share: '复制分享链接',
     shared: '链接已复制！'
   },

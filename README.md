@@ -20,7 +20,7 @@
 In the first minute you can:
 
 - 🎨 **Dress your bot** — 20 shapes, 28 faces, 36 colours, mixed freely (every combo is eye-safe, machine-verified)
-- 👆 **Tap a preset** — 24 ready-made characters: Classic, Cosmos, Candy, Sakura, Lava, Panda, Cyber, Ghost…
+- 👆 **Tap a preset** — 36 ready-made characters: Classic, Cosmos, Candy, Sakura, Lava, Panda, Cyber, Ghost… plus a whole **Cute** shelf 🧸 — Mochi, Pudding, Cupcake, Boba, Bunny, Momo…
 - 🎲 **Hit Random** until one makes you smile, then **Copy share link** and send that exact look to a friend
 - 🎬 **Open Animations** — all 66 animations on a timeline; build your own montage, export it as a GIF
 - 💬 **Open the [chat demo](https://theowlops.github.io/Rogue/chat.html)** — send the bot a message and watch it think → work → type → celebrate; or drive it with the phase chips
