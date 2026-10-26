@@ -1,0 +1,36 @@
+name: pages
+# Publishes the playground (studio + chat demo) to GitHub Pages on every
+# push to main, so the live demo always matches the shipped catalogue.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck the studio
+        run: pnpm --filter @theowlops/rogue-playground exec vue-tsc --noEmit
+      - name: Build the studio for the /Rogue/ project path
+        run: pnpm --filter @theowlops/rogue-playground exec vite build --base=/Rogue/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/playground/dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

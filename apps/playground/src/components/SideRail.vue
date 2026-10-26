@@ -146,6 +146,31 @@ const muted = ref<ViewId | null>(null)
           {{ item.label }}
         </span>
       </li>
+      <!--
+        La demo chat n'est pas une vue : c'est une autre page du meme studio
+        (`chat.html`), qui montre l'avatar en situation reelle dans une
+        conversation. Un lien, donc, et pas un quatrieme bouton du rail.
+      -->
+      <li class="group relative">
+        <a
+          href="chat.html"
+          class="peer flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl text-[var(--muted)] transition hover:bg-black/5 hover:text-[var(--ink)]"
+          :aria-label="t('rail.chat')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <g fill="currentColor">
+              <rect x="3" y="4" width="18" height="12" rx="4" />
+              <path d="M7 15h6l-6 5.2z" />
+            </g>
+          </svg>
+        </a>
+        <span
+          class="pointer-events-none absolute top-full left-1/2 z-10 mt-2 -translate-x-1/2 rounded-lg bg-[var(--ink)] px-2.5 py-1.5 text-xs whitespace-nowrap text-[var(--paper)] opacity-0 transition peer-focus-visible:opacity-100 group-hover:opacity-100 lg:top-1/2 lg:left-full lg:mt-0 lg:ml-2 lg:-translate-y-1/2 lg:translate-x-1 lg:peer-focus-visible:translate-x-0 lg:group-hover:translate-x-0"
+          role="tooltip"
+        >
+          {{ t('rail.chat') }}
+        </span>
+      </li>
     </ul>
   </nav>
 </template>

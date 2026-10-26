@@ -20,14 +20,19 @@ const en: typeof fr = {
     nav: 'Sections',
     customize: 'Customise',
     animations: 'Animations',
-    settings: 'Settings'
+    settings: 'Settings',
+    chat: 'Chat demo'
   },
 
   panel: {
     animations: 'Animation',
     shape: 'Shape',
     expression: 'Expression',
-    color: 'Colour'
+    color: 'Colour',
+    random: 'Random',
+    presets: 'Presets',
+    share: 'Copy share link',
+    shared: 'Link copied!'
   },
 
   export: {

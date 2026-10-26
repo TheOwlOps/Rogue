@@ -32,7 +32,8 @@ export default {
     nav: 'Sections',
     customize: 'Personnaliser',
     animations: 'Animations',
-    settings: 'Réglages'
+    settings: 'Réglages',
+    chat: 'Démo chat'
   },
 
   panel: {
@@ -44,7 +45,11 @@ export default {
     animations: 'Animation',
     shape: 'Forme',
     expression: 'Expression',
-    color: 'Couleur'
+    color: 'Couleur',
+    random: 'Aléatoire',
+    presets: 'Préréglages',
+    share: 'Copier le lien de partage',
+    shared: 'Lien copié !'
   },
 
   /**

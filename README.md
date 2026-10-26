@@ -1,69 +1,245 @@
 <div align="center">
 
-# 🦉 Rogue
+# 🦉 Rogue — the living avatar for AI bots
 
-**Autonomous multi-agent orchestration runtime & execution engine**
+**One morphing SVG avatar. 67 animation states · 20 shapes · 28 expressions · 36 colours.**
+**It thinks, works, types, celebrates — so your bot feels alive in any chat.**
 
-*Define agents. Give them a mission. Rogue plans, delegates, executes, and verifies — on your machine, under your rules.*
-
+[![▶ Try the live studio](https://img.shields.io/badge/▶_Try_the_live_studio-3b93f0?style=for-the-badge)](https://theowlops.github.io/Rogue/)
+[![💬 Try the chat demo](https://img.shields.io/badge/💬_Try_the_chat_demo-0fa36b?style=for-the-badge)](https://theowlops.github.io/Rogue/chat.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-pre--alpha-orange.svg)](#-project-status)
-[![Node](https://img.shields.io/badge/node-%3E%3D20-339933.svg)](https://nodejs.org)
 
 </div>
 
 ---
 
-## What is Rogue?
+## What is this?
 
-Rogue is an open-source runtime for running **teams of autonomous AI agents** on your own infrastructure. Instead of one model answering one prompt, Rogue lets you define specialized agents — a planner, a coder, a researcher, a reviewer — and orchestrates them through a complete mission: breaking work into tasks, assigning the right agent, running tools, checking results, and retrying or escalating when something fails.
+Rogue's avatar engine is a **pure-SVG, morphing bot face** — a black sphere whose silhouette, eyes, and decorations are computed fresh every frame by a clock-free TypeScript engine (`sample(t)` is a pure function of time: same `t`, same pixels, on any machine). No animation library, no video, no sprites.
 
-You describe **who** the agents are and **what** the goal is. Rogue handles **how** it gets done:
+It exists because chat bots deserve better than a static logo and a "typing…" label. When your bot is thinking, it should *look* like it's thinking. When it finishes, it should celebrate. This repo ships:
 
-1. **Plan** — the orchestrator decomposes the mission into a task graph.
-2. **Delegate** — each task is routed to the agent whose role, skills, and tools fit it best.
-3. **Execute** — agents run in a controlled execution engine with real tools (shell, files, browser, APIs), budgets, and timeouts.
-4. **Verify** — results are checked against the task's acceptance criteria before they are accepted.
-5. **Report** — you get the outcome, the full execution trace, and every artifact the swarm produced.
+| Piece | What it does |
+|---|---|
+| **The engine** (`packages/avatar-core`) | The animation core + the full catalogue below, as a zero-dependency TypeScript package |
+| **The studio** (`apps/playground`) | A web app to explore and customise the avatar: customiser, animation timeline, state board, PNG/GIF export — **[live here](https://theowlops.github.io/Rogue/)** |
+| **The chat demo** (`apps/playground/chat.html`) | The avatar living in a mock chat — send it a message and watch it work: **[live here](https://theowlops.github.io/Rogue/chat.html)** |
+| **React / Vue wrappers** | `<RogueAvatar phase="working" />` components for chat apps |
 
-Rogue is **local-first**: the runtime, state, memory, and logs live on your machine. Models are pluggable — point Rogue at any provider you already use.
-
-> **Status:** Rogue is in active development (pre-alpha). The concepts and workflows on this page are the project's public contract; APIs may still change between releases. See [Project status](#-project-status).
+> Rogue is also the seed of a larger project — an autonomous multi-agent orchestration runtime (see [Vision](#-vision)). The avatar is its face, and it's the part you can use today.
 
 ---
 
-## 🖼️ Available today: the Rogue Avatar SDK
+## ▶ Try it now
 
-The first piece of Rogue you can use **right now** lives in this repository: the **avatar engine** — the living face a Rogue agent wears in a chat app. A pure-SVG, morphing bot avatar with **66 animation states, 20 shapes, 28 expressions, and 36 colours**, packaged as SDKs so any chat app can drop it in and drive it with one call: *the bot is thinking… the bot is working… the bot is done.*
+- **Studio:** https://theowlops.github.io/Rogue/ — customise the avatar, browse every animation on the timeline, see all 66 states side by side at [`#planche`](https://theowlops.github.io/Rogue/#planche)
+- **Chat demo:** https://theowlops.github.io/Rogue/chat.html — type a message, watch the bot think → work → type → celebrate; or drive it yourself with the phase chips
+- **Share a look:** build an avatar in the studio, hit **Copy share link**, send the URL — it opens with your exact shape/colour/face (e.g. `#avatar=coeur.corail.amoureux`)
 
-### Packages
+Run it locally:
 
-| Package | What it is |
-|---|---|
-| [`@theowlops/rogue-avatar-core`](packages/avatar-core) | Framework-agnostic engine + SVG renderer + DOM player. Zero dependencies, pure TypeScript. |
-| [`@theowlops/rogue-avatar-react`](packages/avatar-react) | `<RogueAvatar phase="working" />` for React apps |
-| [`@theowlops/rogue-avatar-vue`](packages/avatar-vue) | `<RogueAvatar phase="working" />` for Vue apps |
-| [`apps/playground`](apps/playground) | The full avatar studio (customiser, animation timeline, GIF/PNG export) — run it to explore every state, shape, and expression |
+```bash
+git clone https://github.com/TheOwlOps/Rogue.git
+cd Rogue
+pnpm install
+pnpm dev        # studio at http://localhost:5190, chat demo at /chat.html
+pnpm test       # 219 tests, including a 2,900-combination eye-containment sweep
+pnpm build      # build every package + the studio
+```
 
-### Use it in a chat app
+---
 
-Vanilla / any framework, via the core player:
+## Features
+
+- **67 animation states** — emotions, motion, shape morphs, particle effects, characters (full catalogue below)
+- **20 body shapes × 28 rest expressions × 36 colours** — every combination is safe: an automated sweep proves the eyes never escape the silhouette, in any combo, at any instant
+- **Chat phases** — drive the avatar the way chat apps think: `idle`, `thinking`, `working`, `typing`, `celebrating`… phases that must keep moving play *cycles* of states, never one pinned gesture
+- **Real holes for eyes** — the eyes are pierced through the body with a mask, so they clip naturally at the silhouette's edge, exactly like the reference this engine was measured from
+- **Pure & deterministic** — the engine has no clock, no DOM, no dependencies; freeze any state at any instant for thumbnails, SSR, or pixel-exact exports
+- **Studio included** — timeline editor for building animation montages, cycle manager, PNG/GIF export, 3 languages (Français / English / 简体中文)
+- **New in the studio:** one-click **Presets** (Classic, Cosmos, Candy, Citrus, Forest, Royal), a 🎲 **Random** button, and **share links** that carry a whole look in the URL
+
+---
+
+## 🎬 The catalogue — animation states (67)
+
+### Core states
+
+| State | id | What it does |
+|---|---|---|
+| Idle | `idle` | Breathing rest pose with blinks and a wandering gaze — the home face |
+| Thinking | `thinking` | Three dots pulsing in a row — the classic "bot is typing" |
+| Wink | `wink` | One eye closes in a wink |
+| Wide eyes | `wide` | Eyes stretch wide open, alert and curious |
+| Alert | `alert` | The body vanishes; a tilted exclamation mark remains |
+| Notification | `notif` | A blue notification dot pops onto the rim |
+| Exclamation | `exclaim` | An exclamation mark that leaps up and lands |
+| Sleep | `sleep` | Everything shrinks down to a single sleeping dot |
+| Egg | `egg` | Morphs into an egg |
+| Hexagon | `hexagon` | Morphs into a hexagon |
+| Play | `play` | Morphs into a play-button triangle while orbit rings sweep past |
+| Orbit | `orbit` | Coloured orbit rings circle the sphere |
+| Burst | `burst` | Bursts into particles and reforms |
+| Comet | `comet` | Becomes a comet trailing rainbow ribbons |
+| Swirl | `swirl` | A full 360° spin — the transition state between states (not in the playable sequence) |
+
+### Motion
+
+| State | id | What it does |
+|---|---|---|
+| Bounce | `bounce` | Joyful squash-and-stretch bouncing |
+| Dance | `dance` | Side-to-side groove with tilted eyes |
+| Spin | `spin` | Continuous spin — the body rolls, the eyes orbit |
+| Flip | `flip` | A full backflip with a squash on landing |
+| Wiggle | `wiggle` | Rapid side-to-side wiggle |
+| Swing | `swing` | Pendulum swing, eyes sliding with the momentum |
+| Hop | `hop` | Three little hops |
+| Float | `float` | Weightless levitation, slow rise and fall |
+| Drift | `drift` | Slow, dreamy drift across the frame |
+| Roll | `roll` | Rolls like a wheel, eyes tumbling |
+
+### Shape morphs
+
+| State | id | What it does |
+|---|---|---|
+| Star | `star` | Morphs into a five-pointed star |
+| Heart | `heart` | Morphs into a heart that beats twice — lub-dub |
+| Diamond | `diamond` | Morphs into a diamond |
+| Square | `square` | Morphs into a square |
+| Pentagon | `pentagon` | Morphs into a pentagon |
+| Octagon | `octagon` | Morphs into an octagon |
+| Flower | `flower` | Blooms into a flower |
+| Sun | `sun` | Morphs into a sun with triangular rays |
+| Blob | `blob` | Melts into a living, wobbling blob |
+| Wave | `wave` | The silhouette ripples like a wave |
+| Gear | `gear` | Morphs into a slowly rotating gear |
+| Planet | `planet` | A ringed planet with a moon orbiting it |
+
+### Emotions
+
+| State | id | What it does |
+|---|---|---|
+| Dizzy | `dizzy` | Spiral-eyed, wobbling |
+| Laugh | `laugh` | Shaking with laughter, eyes squeezed shut |
+| Cry | `cry` | Blue tears falling |
+| Love | `love` | Besotted, with little hearts floating up |
+| Angry | `angry` | Tilted brows, trembling with rage |
+| Shocked | `shocked` | Frozen wide-eyed shock, then a slow recovery |
+| Yawn | `yawn` | A big, sleepy yawn |
+| Peek | `peek` | Eyes peek out from behind the rim |
+| Sneeze | `sneeze` | A three-beat sneeze: wind-up… blast… recovery |
+| Proud | `proud` | Chin up, smug slow blink |
+| Bashful | `bashful` | Blushing cheeks, a shy glance away |
+| Ponder | `ponder` | Thought bubbles rising — deep in thought |
+
+### Effects
+
+| State | id | What it does |
+|---|---|---|
+| Rainbow | `rainbow` | Rings cycling through the spectrum |
+| Fireworks | `fireworks` | Colour bursts exploding around the body |
+| Sparkle | `sparkle` | Twinkling sparkles |
+| Rain | `rain` | Rain streaks falling past |
+| Snow | `snow` | Snowflakes drifting down |
+| Bubbles | `bubbles` | Bubbles floating up and popping |
+| Confetti | `confetti` | Confetti raining in colour |
+| Halo | `halo` | A golden halo rises and settles above |
+| Sonar | `sonar` | Expanding sonar rings |
+| Portal | `portal` | A swirling portal vortex |
+| Galaxy | `galaxy` | Five coloured orbits with star sparkles — the showpiece |
+| Meteor | `meteor` | A meteor streaks across with a fading trail |
+
+### Characters & objects
+
+| State | id | What it does |
+|---|---|---|
+| Rocket | `rocket` | Morphs into a rocket with flickering exhaust |
+| UFO | `ufo` | A flying saucer with blinking rim lights, beaming down |
+| Robot | `robot` | A square robot head, antenna light blinking |
+| Ghost | `ghost` | A floating ghost with a wavy hem |
+| Vinyl | `vinyl` | A spinning record with orbiting notes |
+| Target | `target` | A pulsing target reticle |
+
+---
+
+## 🧩 Shapes (20) · 😀 Expressions (28) · 🎨 Colours (36)
+
+**Shapes** — Circle `cercle` · Pebble `galet` · Squircle `squircle` · Capsule `capsule` · Triangle `triangle` · Hexagon `hexagone` · Cloud `nuage` · Droplet `goutte` · Star `etoile` · Square `carre` · Diamond `diamant` · Pentagon `pentagone` · Octagon `octogone` · Heart `coeur` · Sun `soleil` · Flower `fleur` · Oval `ovale` · Pill `pilule` · Pear `poire` · Blob `blob`
+
+**Expressions** — Neutral `neutre` · Attentive `attentif` · Surprised `surpris` · Excited `excite` · Happy `heureux` · Hilarious `hilare` · Angry `colere` · Sad `triste` · Scared `effraye` · Wary `mefiant` · Confused `confus` · Curious `curieux` · Proud `fier` · Shy `timide` · Jaded `blase` · Sleepy `somnolent` · In love `amoureux` · Awestruck `bahi` · Furious `furieux` · Disgusted `degoute` · Sly `sournois` · Dreamy `reveur` · Sick `malade` · Panicked `panique` · Zen `zen` · Dazzled `ebloui` · Teasing `moqueur` · Determined `determine`
+
+**Colours**
+
+| Colour | id | hex | | Colour | id | hex |
+|---|---|---|---|---|---|---|
+| Ink | `encre` | `#0a0a0c` | | Coral | `corail` | `#ff6f61` |
+| Brown | `brun` | `#8b5e3c` | | Salmon | `saumon` | `#fa8072` |
+| Red | `rouge` | `#e8483f` | | Peach | `peche` | `#f2a65a` |
+| Orange | `orange` | `#f08a24` | | Mint | `menthe` | `#3ddc97` |
+| Amber | `ambre` | `#f0b429` | | Sky | `ciel` | `#6ec6e8` |
+| Green | `vert` | `#3ecf8e` | | Lavender | `lavande` | `#b39ddb` |
+| Turquoise | `turquoise` | `#2fbfa0` | | Lilac | `lilas` | `#c86dd7` |
+| Blue | `bleu` | `#3b93f0` | | Fuchsia | `fuchsia` | `#d6339c` |
+| Violet | `violet` | `#8b5cf6` | | Bordeaux | `bordeaux` | `#8e2434` |
+| Pink | `rose` | `#e152b0` | | Olive | `olive` | `#7d8c46` |
+| Grey | `gris` | `#a3a3a3` | | Khaki | `kaki` | `#a8a24a` |
+| Cream | `creme` | `#f1efe9` | | Sand | `sable` | `#d9b382` |
+| | | | | Chocolate | `chocolat` | `#5c3a21` |
+| | | | | Slate | `ardoise` | `#64748b` |
+| | | | | Navy | `marine` | `#25407a` |
+| | | | | Cyan | `cyan` | `#22c3e6` |
+| | | | | Magenta | `magenta` | `#e0218a` |
+| | | | | Lime | `citron` | `#b8cc18` |
+| | | | | Plum | `prune` | `#6c3483` |
+| | | | | Silver | `argent` | `#c3cbd2` |
+| | | | | Gold | `or` | `#c9a227` |
+| | | | | Copper | `cuivre` | `#b87333` |
+| | | | | Emerald | `emeraude` | `#0fa36b` |
+| | | | | Sapphire | `saphir` | `#2456c8` |
+
+> That's **20 × 28 × 36 = 20,160** base looks — before animation states enter into it.
+
+---
+
+## 💬 Chat phases — the chat-app API
+
+Chat apps don't think in animation states; they think in *what the bot is doing*. The SDK maps that vocabulary onto the catalogue:
+
+| Phase | When | Plays |
+|---|---|---|
+| `offline` / `sleeping` | Bot away | `sleep` |
+| `idle` | Resting, breathing, blinking | `idle` |
+| `listening` | User is speaking | `wide` |
+| `thinking` | Waiting on the model | cycle: thinking → ponder → thinking → wide |
+| `working` | Running tools | cycle: play → orbit → comet → burst |
+| `typing` | Answer streaming in | `thinking` (the three dots) |
+| `speaking` | Reading the answer aloud | cycle: play → wave |
+| `happy` | A positive moment | cycle: dance → heart → sparkle |
+| `celebrating` | Task nailed | cycle: burst → fireworks → confetti → dance |
+| `error` | Something went wrong | `dizzy` |
+
+---
+
+## 🛠️ Use it in your app
+
+Vanilla (any framework, or none):
 
 ```ts
 import { createAvatar } from '@theowlops/rogue-avatar-core'
 
 const avatar = createAvatar(document.querySelector('#bot-avatar')!, {
   size: 96,
-  shape: 'cercle',        // any of the 20 shapes
-  color: 'encre',         // any of the 36 colours
-  expression: 'neutre'    // any of the 28 rest expressions
+  shape: 'etoile',       // any of the 20 shapes
+  color: 'saphir',       // any of the 36 colours
+  expression: 'reveur'   // any of the 28 expressions
 })
 
-avatar.setPhase('thinking')   // while the request is in flight
-avatar.setPhase('working')    // while the agent runs tools
-avatar.setPhase('typing')     // while the answer streams in
-avatar.setPhase('idle')       // when it's done
-avatar.setPhase('celebrating')// when it nailed something 🎉
+avatar.setPhase('thinking')    // request in flight
+avatar.setPhase('working')     // tools running
+avatar.setPhase('typing')      // answer streaming
+avatar.setPhase('idle')        // done
+avatar.setState('galaxy')      // …or drive any of the 67 states directly
+avatar.setCycle([{ state: 'rocket', duration: 2 }, { state: 'ufo', duration: 3 }])
 ```
 
 React:
@@ -71,7 +247,7 @@ React:
 ```tsx
 import { RogueAvatar } from '@theowlops/rogue-avatar-react'
 
-<RogueAvatar phase={busy ? 'working' : 'idle'} size={40} shape="etoile" color="saphir" />
+<RogueAvatar phase={busy ? 'working' : 'idle'} size={40} shape="coeur" color="corail" />
 ```
 
 Vue:
@@ -84,515 +260,72 @@ import { RogueAvatar } from '@theowlops/rogue-avatar-vue'
 <RogueAvatar :phase="busy ? 'working' : 'idle'" :size="40" />
 ```
 
-### Chat phases
-
-Chat apps speak in phases, not animation states — so the SDK does too. Phases that need to *keep moving* (thinking, working) play a looping cycle of states rather than one pinned gesture.
-
-| Phase | Meaning | Plays |
-|---|---|---|
-| `offline` / `sleeping` | Bot away | `sleep` |
-| `idle` | Resting, breathing, blinking | `idle` |
-| `listening` | User is speaking / mic open | `wide` |
-| `thinking` | Waiting on the model | cycle: thinking → ponder → wide |
-| `working` | Running tools | cycle: play → orbit → comet → burst |
-| `typing` | Answer is streaming | `thinking` (the three dots) |
-| `speaking` | Reading the answer aloud | cycle: play → wave |
-| `happy` | Positive moment | cycle: dance → heart → sparkle |
-| `celebrating` | Task completed with flair | cycle: burst → fireworks → confetti → dance |
-| `error` | Something went wrong | `dizzy` |
-
-Need finer control? Skip phases and drive the engine directly — all 66 states, custom cycles, shapes, expressions:
-
-```ts
-avatar.setState('galaxy')                                   // one state
-avatar.setCycle([{ state: 'rocket', duration: 2 },          // your own montage
-                 { state: 'ufo', duration: 3 }])
-avatar.setShape('coeur'); avatar.setColor('corail'); avatar.setExpression('amoureux')
-```
-
-Or render without the player — the engine is a pure function of time, ideal for SSR and snapshots:
+No player needed — server-render or snapshot any instant:
 
 ```ts
 import { BotEngine, frameToSvg } from '@theowlops/rogue-avatar-core'
 
-const engine = new BotEngine(100, 'orbit')
-const svgString = frameToSvg(engine.sample(0.8))   // a complete <svg>…</svg>
+const engine = new BotEngine(100, 'galaxy')
+const svg = frameToSvg(engine.sample(1.2))   // a complete <svg>…</svg> string
 ```
-
-### Run the playground studio
-
-```bash
-git clone https://github.com/TheOwlOps/Rogue.git
-cd Rogue
-pnpm install
-pnpm dev        # http://localhost:5190 — customiser, timeline, planche, exports
-pnpm test       # engine + SDK + studio test suites
-pnpm build      # build all packages and the studio
-```
-
-> The avatar engine is derived from [bloub](https://github.com/jeremy-prt/bloub) by Jérémy Perret (MIT) — see [NOTICE.md](NOTICE.md). The 100-entry expansion pack (52 states, 12 shapes, 12 expressions, 24 colours) is documented in [packages/avatar-core/EXPANSION.md](packages/avatar-core/EXPANSION.md).
 
 ---
 
-## Why Rogue?
+## 🎛️ Studio guide
 
-| Problem with hand-rolled agent scripts | How Rogue solves it |
+| View | What you can do |
 |---|---|
-| Gluing prompts, loops, and tool calls together for every new task | Declarative agent & mission definitions — config, not plumbing |
-| One agent trying to do everything, badly | Specialist agents with roles, skills, and their own toolsets |
-| No idea what the swarm did, or why it failed | Full execution trace: every plan, message, tool call, and result is logged |
-| Runaway loops burning tokens | Hard budgets per mission, per agent, and per task — enforced by the runtime |
-| Agents doing dangerous things unattended | Approval gates for sensitive actions, sandboxed execution, deny-by-default tool permissions |
-| Restarting from zero after a crash | Persistent state and resumable runs — pick up exactly where execution stopped |
+| **Customise** | Pick from 20 shapes, 28 expressions, 36 colours — or hit 🎲 **Random**, pick a **Preset**, and **Copy share link** to send your exact look to anyone |
+| **Animations** | Browse all 66 states, build a montage on the timeline (add blocks, drag durations, reorder), save named cycles, export the result as an animated GIF or a PNG |
+| **Settings** | The avatar at giant size, eyes following your cursor; language switcher (Français / English / 简体中文) |
+| **Chat demo** (chat icon in the rail, or `/chat.html`) | The avatar in a working chat mock: send messages, watch the think → work → type → celebrate flow, drive phases by hand, re-dress the bot live |
 
----
+**URL tricks**
 
-## Key features
-
-- **Multi-agent orchestration** — sequential, parallel, and hierarchical (manager → workers) execution patterns out of the box.
-- **Task graph engine** — missions are decomposed into dependent tasks; independent tasks run in parallel automatically.
-- **Real execution engine** — agents act through tools: shell, filesystem, HTTP, browser automation, and your own custom tools.
-- **Pluggable models** — per-agent model selection; mix providers and price tiers (a strong planner, cheap workers).
-- **Persistent memory** — per-agent and shared swarm memory across runs, stored locally.
-- **Budgets & guardrails** — token, time, and step limits; approval gates; sandboxed workspaces.
-- **Observable by default** — structured logs, live run view, and a replayable event trace for every run.
-- **Resumable runs** — pause, stop, and resume missions without losing completed work.
-- **TypeScript-native** — define everything in typed code, or in YAML if you prefer config over code.
-- **Open source, MIT licensed** — no account, no hosted control plane, no telemetry.
-
----
-
-## How it works
-
-```text
-                          ┌─────────────────────────────┐
-            mission ────► │         ORCHESTRATOR        │
-                          │  plan · route · verify      │
-                          └──────────────┬──────────────┘
-                                         │ task graph
-              ┌──────────────────────────┼──────────────────────────┐
-              ▼                          ▼                          ▼
-        ┌───────────┐              ┌───────────┐              ┌───────────┐
-        │  AGENT A  │              │  AGENT B  │              │  AGENT C  │
-        │ researcher│              │   coder   │              │ reviewer  │
-        └─────┬─────┘              └─────┬─────┘              └─────┬─────┘
-              │                          │                          │
-              ▼                          ▼                          ▼
-        ┌───────────────────────────────────────────────────────────────┐
-        │                    EXECUTION ENGINE                           │
-        │  tools · sandbox · budgets · approvals · memory · events      │
-        └───────────────────────────────────────────────────────────────┘
-```
-
-- The **Orchestrator** owns the mission. It plans, assigns, verifies, and decides what happens when a task fails (retry, reassign, replan, or escalate to you).
-- **Agents** are specialists. Each has a role, instructions, a model, a set of skills, and an explicit list of tools it is allowed to use.
-- The **Execution Engine** is the only layer that touches the real world. Every tool call passes through it, so permissions, budgets, logging, and approvals are enforced in one place — agents cannot bypass it.
-
----
-
-## Requirements
-
-- **Node.js 20+** (LTS recommended)
-- An API key (or local endpoint) for at least one model provider
-- macOS, Linux, or Windows (WSL2 recommended on Windows)
-
----
-
-## Installation
-
-Install the CLI globally:
-
-```bash
-npm install -g @theowlops/rogue
-```
-
-Or run it without installing:
-
-```bash
-npx @theowlops/rogue --help
-```
-
-Or add it to a project as a library:
-
-```bash
-npm install @theowlops/rogue
-```
-
-Verify the installation:
-
-```bash
-rogue --version
-rogue doctor        # checks Node, config, and provider connectivity
-```
-
----
-
-## Quickstart (5 minutes)
-
-### 1. Create a project
-
-```bash
-rogue init my-swarm
-cd my-swarm
-```
-
-This scaffolds:
-
-```text
-my-swarm/
-├── rogue.config.ts     # runtime + provider configuration
-├── agents/             # one file per agent
-│   ├── planner.ts
-│   ├── researcher.ts
-│   └── coder.ts
-├── missions/           # reusable mission definitions
-│   └── research-and-build.ts
-└── .rogue/             # local state, memory, logs (git-ignored)
-```
-
-### 2. Configure your model provider
-
-Edit `rogue.config.ts`:
-
-```ts
-import { defineConfig } from '@theowlops/rogue'
-
-export default defineConfig({
-  provider: {
-    name: 'openai',                    // or 'anthropic', 'google', 'ollama', …
-    apiKey: process.env.OPENAI_API_KEY,
-    defaultModel: 'gpt-5'
-  },
-  runtime: {
-    workspace: './workspace',          // where agents are allowed to work
-    maxConcurrency: 4,                 // parallel tasks
-    budget: { maxTokens: 500_000, maxMinutes: 30 }
-  }
-})
-```
-
-Or use environment variables only — no config file required:
-
-```bash
-export ROGUE_PROVIDER=openai
-export OPENAI_API_KEY=sk-…
-```
-
-### 3. Define an agent
-
-`agents/researcher.ts`:
-
-```ts
-import { defineAgent } from '@theowlops/rogue'
-
-export default defineAgent({
-  name: 'researcher',
-  role: 'Research analyst',
-  goal: 'Find accurate, sourced answers to open questions',
-  instructions: `
-    Always cite sources. Prefer primary documentation over blog posts.
-    If evidence conflicts, say so explicitly instead of guessing.
-  `,
-  model: 'gpt-5-mini',                 // cheap + fast for legwork
-  skills: ['web-research', 'summarization'],
-  tools: ['web.search', 'web.fetch', 'fs.read']
-})
-```
-
-### 4. Run a mission
-
-From the CLI, in plain language:
-
-```bash
-rogue run "Research the top 3 open-source vector databases, then write a comparison report to report.md"
-```
-
-Or as a reusable mission file, `missions/research-and-build.ts`:
-
-```ts
-import { defineMission } from '@theowlops/rogue'
-
-export default defineMission({
-  name: 'research-and-build',
-  goal: 'Research vector databases and produce a comparison report',
-  agents: ['planner', 'researcher', 'coder'],
-  pattern: 'hierarchical',             // planner delegates, agents execute
-  acceptance: [
-    'report.md exists in the workspace',
-    'report covers at least 3 databases with cited sources'
-  ]
-})
-```
-
-```bash
-rogue run missions/research-and-build.ts
-```
-
-### 5. Watch and inspect the run
-
-```bash
-rogue status          # live view of the current run: tasks, agents, budget
-rogue logs --follow   # stream structured events as they happen
-rogue trace last      # full replay of the last run, step by step
-```
-
-When the mission finishes, Rogue prints the outcome, the artifacts produced, token/time spent, and anything that needs your decision.
-
----
-
-## Core concepts
-
-### Agent
-
-An **agent** is a specialist worker: a role, a goal, instructions, a model, skills, and a tool allow-list. Agents only ever have the tools they are explicitly given — deny by default.
-
-```ts
-defineAgent({
-  name: 'reviewer',
-  role: 'Code reviewer',
-  goal: 'Reject anything that would break production',
-  model: 'gpt-5',
-  tools: ['fs.read', 'git.diff'],
-  budget: { maxTokens: 50_000 }
-})
-```
-
-### Mission
-
-A **mission** is the unit of work: a goal, the agents involved, an execution pattern, and acceptance criteria. A mission succeeds only when its acceptance criteria are verified — "the agent said it's done" is not enough.
-
-### Task graph
-
-The orchestrator decomposes a mission into **tasks** with dependencies. Tasks with no unmet dependencies run in parallel, up to `maxConcurrency`. A failed task is retried, reassigned, or causes a replan — according to the mission's policy, never silently dropped.
-
-### Tools
-
-A **tool** is a capability the execution engine exposes to agents: running a shell command, reading a file, calling an API. Every tool call is permission-checked, budget-checked, logged, and — for sensitive tools — approval-gated.
-
-### Skills
-
-A **skill** is a packaged bundle of instructions + tools for a domain (for example `web-research` or `code-review`). Skills keep agent definitions short: attach the skill, the agent knows the playbook.
-
-### Memory
-
-Agents have **memory**: a private scratchpad per agent and a shared blackboard per mission, persisted across runs in `.rogue/`. Memory is plain local data — inspect it, edit it, delete it.
-
-### Approvals
-
-Sensitive actions (writing outside the workspace, network calls to new hosts, destructive shell commands, spending beyond a threshold) pause execution and ask **you**. Approvals can be granted per action, per run, or by policy — never silently.
-
----
-
-## Execution patterns
-
-| Pattern | How it works | Best for |
-|---|---|---|
-| `sequential` | Agents work one after another, each building on the previous result | Pipelines: research → write → review |
-| `parallel` | The same task is fanned out to several agents at once; results are merged | Broad research, multi-option exploration |
-| `hierarchical` | A planner/manager agent delegates to worker agents and verifies their output | Complex, open-ended missions (default) |
-| `debate` | Agents argue opposing positions; a judge agent synthesizes the verdict | Decisions, design reviews, fact-checking |
-
-Set the pattern per mission:
-
-```ts
-defineMission({ name: 'design-review', pattern: 'debate', agents: ['architect-a', 'architect-b', 'judge'] })
-```
-
----
-
-## Configuration reference
-
-`rogue.config.ts` (or `rogue.config.js` / `rogue.yaml`) at the project root:
-
-| Key | Type | Default | Description |
-|---|---|---|---|
-| `provider.name` | string | — | Model provider: `openai`, `anthropic`, `google`, `ollama`, or any OpenAI-compatible endpoint |
-| `provider.apiKey` | string | env | API key (prefer environment variables) |
-| `provider.baseUrl` | string | provider default | Custom endpoint, e.g. a local model server |
-| `provider.defaultModel` | string | — | Model used when an agent doesn't specify one |
-| `runtime.workspace` | path | `./workspace` | The only directory agents may write to by default |
-| `runtime.maxConcurrency` | number | `4` | Maximum tasks executing in parallel |
-| `runtime.budget.maxTokens` | number | unlimited | Hard token ceiling per run — execution stops when hit |
-| `runtime.budget.maxMinutes` | number | unlimited | Hard wall-clock ceiling per run |
-| `runtime.approvals` | `'ask' \| 'policy' \| 'never'` | `'ask'` | How sensitive actions are approved (`never` still respects deny rules) |
-| `runtime.sandbox` | boolean | `true` | Run shell tools in the restricted workspace sandbox |
-| `memory.dir` | path | `./.rogue/memory` | Where persistent memory is stored |
-| `logging.level` | `'debug' \| 'info' \| 'warn'` | `'info'` | Event log verbosity |
-| `logging.file` | path | `./.rogue/logs` | Where run traces are written |
-
-Every value can be overridden by an environment variable prefixed with `ROGUE_` (for example `ROGUE_MAX_CONCURRENCY=8`) or by a CLI flag.
-
----
-
-## CLI reference
-
-| Command | Description |
+| URL | Effect |
 |---|---|
-| `rogue init [dir]` | Scaffold a new Rogue project |
-| `rogue run <goal \| mission-file>` | Run a mission from a plain-language goal or a mission file |
-| `rogue run --dry <goal>` | Show the plan and estimated budget without executing |
-| `rogue status` | Live view of the running mission: task graph, agents, budget burn |
-| `rogue logs [--follow] [--run <id>]` | Show or stream the event log |
-| `rogue trace <run-id \| last>` | Replay a run step by step |
-| `rogue pause` / `rogue resume` | Pause a run (state is kept) / resume it later |
-| `rogue stop` | Stop a run safely; completed tasks and artifacts are kept |
-| `rogue agents` | List agents in the current project with their tools and models |
-| `rogue tools` | List available tools and which agents may use them |
-| `rogue doctor` | Diagnose Node, config, provider connectivity, and permissions |
-| `rogue config` | Print the resolved configuration (secrets redacted) |
-
-Useful global flags: `--config <path>`, `--workspace <path>`, `--budget <tokens>`, `--yes` (auto-approve non-destructive actions), `--json` (machine-readable output).
+| `#planche` | All 66 states frozen side by side |
+| `#etat=galaxy` | Open one state, playing |
+| `#etat=sneeze&stop` | Open one state, paused at its pose |
+| `#avatar=coeur.corail.amoureux` | Open with a shared look (shape.colour.expression) |
 
 ---
 
-## Programmatic API
-
-Everything the CLI does is available as a library:
-
-```ts
-import { Rogue, defineAgent, defineMission } from '@theowlops/rogue'
-
-const rogue = new Rogue({ configFile: './rogue.config.ts' })
-
-rogue.registerAgent(defineAgent({
-  name: 'coder',
-  role: 'Software engineer',
-  goal: 'Implement features with tests',
-  tools: ['fs.read', 'fs.write', 'shell.run', 'git.diff']
-}))
-
-const run = await rogue.run(defineMission({
-  name: 'fix-login-bug',
-  goal: 'Reproduce, fix, and regression-test the login redirect bug',
-  agents: ['planner', 'coder', 'reviewer'],
-  pattern: 'hierarchical',
-  acceptance: ['a regression test exists and passes', 'reviewer approved the diff']
-}))
-
-console.log(run.status)      // 'succeeded' | 'failed' | 'needs-input'
-console.log(run.artifacts)   // files produced during the run
-console.log(run.usage)       // { tokens, minutes, costEstimate }
-```
-
-Runs are event-emitters — stream progress into your own UI:
-
-```ts
-run.on('task:completed', (e) => console.log(e.agent, 'finished', e.task))
-run.on('approval:needed', async (e) => /* decide in your app */ true)
-```
-
----
-
-## Tools
-
-### Built-in tools
-
-| Tool | Capability | Sensitive |
-|---|---|---|
-| `fs.read` / `fs.list` | Read files inside the workspace | no |
-| `fs.write` / `fs.edit` | Create and modify files inside the workspace | no (workspace only) |
-| `shell.run` | Run shell commands in the sandbox | **yes** beyond the allow-list |
-| `web.search` / `web.fetch` | Search the web and fetch pages | no |
-| `web.browser` | Drive a real browser (click, type, screenshot) | **yes** for submissions |
-| `http.request` | Call HTTP APIs | **yes** for new hosts |
-| `git.status` / `git.diff` / `git.commit` | Inspect and commit the workspace repo | commit = **yes** |
-| `memory.read` / `memory.write` | Access persistent memory | no |
-
-### Writing a custom tool
-
-```ts
-import { defineTool } from '@theowlops/rogue'
-import { z } from 'zod'
-
-export default defineTool({
-  name: 'deploy.preview',
-  description: 'Deploy the workspace to the preview environment',
-  input: z.object({ target: z.string() }),
-  sensitive: true,                       // requires approval by default
-  async run({ target }, ctx) {
-    ctx.log(`deploying to ${target}`)
-    // … your code …
-    return { url: `https://preview.example.com/${target}` }
-  }
-})
-```
-
-Drop the file in `tools/` and add `'deploy.preview'` to an agent's `tools` list.
-
----
-
-## Safety model
-
-Rogue is built to run unattended **without** running away:
-
-- **Deny by default** — an agent can only use tools it was explicitly given.
-- **Workspace jail** — file and shell tools are confined to the workspace unless you widen the scope.
-- **Approval gates** — sensitive tools pause for your decision; every decision is written to the trace.
-- **Hard budgets** — token, time, and step ceilings are enforced by the runtime, not by prompt politeness.
-- **Full traceability** — if it happened, it's in the log: plans, messages, tool calls, results, approvals.
-- **Local state** — memory, logs, and credentials stay on your machine. Rogue sends data only to the model providers you configured.
-
----
-
-## Project layout (for contributors)
+## 📦 Repository layout
 
 ```text
 rogue/
 ├── packages/
-│   ├── avatar-core/   # the avatar engine + SDK (renderer, player, chat phases)
-│   ├── avatar-react/  # <RogueAvatar /> for React
-│   └── avatar-vue/    # <RogueAvatar /> for Vue
+│   ├── avatar-core/    # engine + catalogue + renderer + player + chat phases
+│   ├── avatar-react/   # <RogueAvatar /> for React
+│   └── avatar-vue/     # <RogueAvatar /> for Vue
 ├── apps/
-│   └── playground/    # the avatar studio (customiser, timeline, exports)
-└── .github/workflows/ # CI: install, build, test the whole workspace
+│   └── playground/     # the studio (index.html) + chat demo (chat.html)
+└── .github/workflows/  # CI + GitHub Pages deployment of the studio
 ```
 
-The orchestration runtime (orchestrator, execution engine, memory, CLI) is in design — its packages will land alongside the avatar SDK as they are built.
+**Development**
+
+```bash
+pnpm install
+pnpm dev                                   # studio on :5190
+pnpm test                                  # 219 tests across core + studio
+pnpm --filter @theowlops/rogue-avatar-core build   # tsc → dist (browser-ready ESM)
+pnpm build                                 # everything
+```
+
+Testing is taken seriously here: beyond unit tests, a dedicated sweep samples **20 shapes × 29 faces × 5 base states × 60 instants (2,900 combinations)** and fails if an eye ever leaves the silhouette — that's what makes "every combination is safe" a fact rather than a hope. The expansion pack's design notes live in [packages/avatar-core/EXPANSION.md](packages/avatar-core/EXPANSION.md).
 
 ---
 
-## Examples
+## 🔭 Vision
 
-| Example | What it shows |
-|---|---|
-| `examples/research-team` | Hierarchical research swarm producing a cited report |
-| `examples/code-crew` | Planner + coder + reviewer fixing a real bug end-to-end |
-| `examples/debate-club` | Two agents debating a design decision, judge synthesizing |
-| `examples/overnight-ops` | Long-running mission with budgets, approvals by policy, and resume-after-crash |
+Rogue is growing into an **autonomous multi-agent orchestration runtime**: define specialist agents, give them a mission, and let an orchestrator plan, delegate, execute, and verify — locally, with budgets, approval gates, and a full execution trace. These avatars are the faces those agents will wear in the chat apps they work in. The runtime's design contract (concepts, configuration, CLI, safety model) is being drafted in the open in this repository's history; the avatar engine is the first shipped piece.
 
 ---
 
-## Roadmap
+## 🙏 Credits & license
 
-- [x] Core orchestrator: task graph, hierarchical pattern, verification loop
-- [x] Execution engine: sandbox, budgets, approval gates, event trace
-- [x] CLI: init / run / status / logs / trace / pause / resume
-- [ ] Visual run dashboard (live task graph in the browser)
-- [ ] Skill marketplace (shareable skill packs)
-- [ ] More providers and local-model optimizations
-- [ ] Team mode: multiple humans approving and steering one swarm
+The avatar engine is derived from [bloub](https://github.com/jeremy-prt/bloub) by **Jérémy Perret** — an SVG recreation of the x.ai bot avatar, measured frame by frame from the reference video. The 100-entry expansion pack (52 states, 12 shapes, 12 expressions, 24 colours), the SDK layer, the chat demo, and the studio features on top were built by TheOwlOps. See [NOTICE.md](NOTICE.md).
 
----
-
-## 📌 Project status
-
-Rogue is **pre-alpha** and under active development by [TheOwlOps](https://github.com/TheOwlOps). Expect breaking changes between releases while the core APIs settle. Bug reports, design feedback, and "here's how my swarm failed" write-ups are the most valuable contributions right now.
-
----
-
-## Contributing
-
-1. Fork the repo and create a branch: `git checkout -b feat/my-change`
-2. Make your change, with tests where it matters.
-3. Run the checks: `pnpm test && pnpm build`
-4. Open a pull request describing **what changed and why** — include a trace or log excerpt if it touches execution behavior.
-
-Please keep PRs focused: one feature or fix per PR. For big ideas, open an issue first so we can align on the design.
-
----
-
-## License
-
-[MIT](LICENSE) © TheOwlOps
-
-*Rogue is not affiliated with any model provider. Model names are used only to describe compatibility.*
+[MIT](LICENSE) © TheOwlOps and contributors.

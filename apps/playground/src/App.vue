@@ -67,11 +67,22 @@ function readHash() {
   const asked = params.get('etat') as StateId | null
   // on ne fait jamais confiance a l'URL : l'etat doit exister
   const known = STATES.some((s) => s.id === asked)
+  // `#avatar=forme.couleur.visage` : le lien de partage du personnalisateur.
+  // Meme regle : chaque morceau doit exister dans le catalogue, sinon rien.
+  const parts = (params.get('avatar') ?? '').split('.')
+  const avatar =
+    parts.length === 3 &&
+    SHAPE_BY_ID.has(parts[0]!) &&
+    COLOR_BY_ID.has(parts[1]!) &&
+    EXPRESSION_BY_ID.has(parts[2]!)
+      ? { shape: parts[0]!, color: parts[1]!, expression: parts[2]! }
+      : null
   return {
     state: known ? asked! : 'idle',
     named: known,
     playing: !params.has('stop'),
     gallery: params.has('planche'),
+    avatar,
     // `#arrivee` : rejouer l'arrivee sans avoir a revenir sur le site. Elle ne se
     // joue qu'a la VENUE, donc sans ce lien on ne peut pas la revoir de la seance.
     arrivee: params.has('arrivee')
@@ -443,6 +454,14 @@ const color = ref(stored('couleur', DEFAULT_COLOR, (v) => COLOR_BY_ID.has(v)))
 const expression = ref(
   stored('expression', DEFAULT_EXPRESSION, (v) => EXPRESSION_BY_ID.has(v))
 )
+
+// Un lien de partage prime sur le stockage : c'est la combinaison de celui
+// qui envoie, et les watchers ci-dessous la rangent comme un choix normal.
+if (initial.avatar) {
+  shape.value = initial.avatar.shape
+  color.value = initial.avatar.color
+  expression.value = initial.avatar.expression
+}
 
 watch(shape, (v) => ecris('forme', v))
 watch(color, (v) => ecris('couleur', v))

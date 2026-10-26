@@ -25,14 +25,19 @@ const zh: typeof fr = {
     nav: '版块',
     customize: '个性化',
     animations: '动画',
-    settings: '设置'
+    settings: '设置',
+    chat: '聊天演示'
   },
 
   panel: {
     animations: '动画',
     shape: '形状',
     expression: '表情',
-    color: '颜色'
+    color: '颜色',
+    random: '随机',
+    presets: '预设',
+    share: '复制分享链接',
+    shared: '链接已复制！'
   },
 
   export: {

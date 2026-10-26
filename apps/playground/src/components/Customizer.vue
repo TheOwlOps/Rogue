@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import BotTile from '@/components/BotTile.vue'
 import { EXPRESSIONS } from '@/bot/expressions'
 import { COLORS, SHAPES } from '@/bot/skins'
@@ -13,11 +14,89 @@ const expression = defineModel<string>('expression', { required: true })
  * la forme et le visage tels qu'ils apparaitront, pas un aplat abstrait.
  */
 const PREVIEW_AT = 1
+
+/**
+ * Combinaisons pretes a l'emploi : un clic pose la forme, la couleur et le
+ * visage d'un coup. Les noms restent en anglais dans les trois langues — ce
+ * sont des noms de personnages, pas des libelles d'interface.
+ */
+const PRESETS: Array<{ name: string; shape: string; color: string; expression: string }> = [
+  { name: 'Classic', shape: 'cercle', color: 'encre', expression: 'neutre' },
+  { name: 'Cosmos', shape: 'etoile', color: 'saphir', expression: 'reveur' },
+  { name: 'Candy', shape: 'coeur', color: 'corail', expression: 'amoureux' },
+  { name: 'Citrus', shape: 'soleil', color: 'citron', expression: 'ebloui' },
+  { name: 'Forest', shape: 'blob', color: 'emeraude', expression: 'zen' },
+  { name: 'Royal', shape: 'diamant', color: 'prune', expression: 'determine' }
+]
+
+function applyPreset(p: (typeof PRESETS)[number]) {
+  shape.value = p.shape
+  color.value = p.color
+  expression.value = p.expression
+}
+
+const pick = <T,>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)]!
+
+function randomize() {
+  shape.value = pick(SHAPES).id
+  color.value = pick(COLORS).id
+  expression.value = pick(EXPRESSIONS).id
+}
+
+/**
+ * Lien de partage : la combinaison tient dans le hash (`#avatar=forme.couleur
+ * .visage`), relue par `App.vue` a l'arrivee — aucun stockage cote serveur.
+ */
+const shared = ref(false)
+let sharedTimer = 0
+async function share() {
+  const url = `${location.origin}${location.pathname}#avatar=${shape.value}.${color.value}.${expression.value}`
+  try {
+    await navigator.clipboard.writeText(url)
+  } catch {
+    location.hash = `avatar=${shape.value}.${color.value}.${expression.value}`
+  }
+  shared.value = true
+  clearTimeout(sharedTimer)
+  sharedTimer = window.setTimeout(() => (shared.value = false), 2000)
+}
 </script>
 
 <template>
   <div>
-    <h2 class="text-sm font-semibold">{{ t('panel.shape') }}</h2>
+    <div class="flex gap-1.5">
+      <button
+        type="button"
+        class="flex-1 cursor-pointer rounded-xl border border-[var(--line)] px-3 py-2 text-sm font-medium transition hover:bg-black/5"
+        @click="randomize"
+      >
+        🎲 {{ t('panel.random') }}
+      </button>
+      <button
+        type="button"
+        class="flex-1 cursor-pointer rounded-xl border border-[var(--line)] px-3 py-2 text-sm font-medium transition hover:bg-black/5"
+        @click="share"
+      >
+        {{ shared ? '✓ ' + t('panel.shared') : '🔗 ' + t('panel.share') }}
+      </button>
+    </div>
+
+    <h2 class="mt-5 text-sm font-semibold">{{ t('panel.presets') }}</h2>
+    <div class="mt-2 grid grid-cols-3 gap-1.5">
+      <BotTile
+        v-for="p in PRESETS"
+        :key="p.name"
+        :label="p.name"
+        :selected="p.shape === shape && p.color === color && p.expression === expression"
+        :shape="p.shape"
+        :color="p.color"
+        :expression="p.expression"
+        :frozen-at="PREVIEW_AT"
+        @click="applyPreset(p)"
+      />
+    </div>
+
+    <h2 class="mt-5 text-sm font-semibold">{{ t('panel.shape') }}</h2>
     <div class="mt-2 grid grid-cols-4 gap-1.5">
       <BotTile
         v-for="s in SHAPES"
