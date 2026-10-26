@@ -174,7 +174,7 @@ body,
    * Dimensionne d'apres la place REELLEMENT disponible, et non en `vw` seul : le
    * mot part a 6rem du bord gauche, donc une taille proportionnelle a la fenetre
    * finissait par pousser le dernier B au-dela du bord droit. 3,05 est la largeur
-   * de « BLOUB » en cadratins a ce poids et cet interlettrage — mesuree, pas
+   * de « THEOWLOPS » en cadratins a ce poids et cet interlettrage — mesuree, pas
    * estimee — et le reste est la marge qu'on lui laisse a droite.
    */
   font-size: clamp(80px, calc((100vw - 7rem) / 3.05), 268px);
@@ -246,7 +246,7 @@ body,
      *
      * Une marge negative n'y suffit pas : la zone defilable est l'union des BOITES
      * des descendants, les marges n'y entrent pas, et le talon de la fonte —
-     * l'espace des jambages, vide pour BLOUB qui n'en a aucun — depassait la boite
+     * l'espace des jambages, vide pour THEOWLOPS qui n'en a aucun — depassait la boite
      * de 21 px que la page comptait quand meme. D'ou 21 px de blanc sous le mot.
      *
      * On rogne donc a la LIGNE DE BASE : plus rien ne deborde, la page s'arrete ou

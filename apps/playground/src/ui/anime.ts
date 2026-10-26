@@ -18,7 +18,7 @@ const ascii = (s: string) => Array.from(s, (c) => c.charCodeAt(0))
 /**
  * Injecte l'animation des yeux dans un SVG deja rendu.
  *
- * On ne reconstruit PAS le dessin : on part du SVG que `BloubBot` a produit pour
+ * On ne reconstruit PAS le dessin : on part du SVG que `TheOwlOpsBot` a produit pour
  * la premiere image et on remplace le `transform` de chaque oeil par une classe
  * animee. Une seule source de dessin, donc aucune derive possible — c'est la
  * meme regle que pour l'export fixe.

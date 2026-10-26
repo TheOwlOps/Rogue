@@ -12,9 +12,9 @@ import type fr from './fr'
  */
 const zh: typeof fr = {
   app: {
-    name: 'bloub',
-    title: 'bloub — 动画 SVG 头像',
-    botAria: 'bloub 动画头像'
+    name: 'theowlops',
+    title: 'theowlops — 动画 SVG 头像',
+    botAria: 'theowlops 动画头像'
   },
 
   gallery: {

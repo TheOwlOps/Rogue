@@ -1,6 +1,6 @@
 /**
  * SVG renderer for the avatar engine — a faithful, framework-free port of the
- * layering the original Vue component (`BloubBot.vue`) applies to a `BotFrame`:
+ * layering the original Vue component (`TheOwlOpsBot.vue`) applies to a `BotFrame`:
  *
  *   1. back halves of orbit arcs (occluded by the body)
  *   2. burst particles, when the state says they pass behind the body

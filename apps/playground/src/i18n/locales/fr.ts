@@ -19,9 +19,9 @@ export default {
      * Un nom propre ne se traduit pas non plus. `title` sert de `document.title`.
      * Voir aussi le <title> de index.html, qui est statique.
      */
-    name: 'bloub',
-    title: 'bloub — avatar SVG animé',
-    botAria: 'Avatar bloub animé'
+    name: 'theowlops',
+    title: 'theowlops — avatar SVG animé',
+    botAria: 'Avatar theowlops animé'
   },
 
   gallery: {

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { gifAnime, svgAnime } from './anime'
 
-/** SVG minimal ayant la structure de celui de BloubBot : corps + deux yeux. */
+/** SVG minimal ayant la structure de celui de TheOwlOpsBot : corps + deux yeux. */
 const BASE =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-125 -125 250 250">' +
   '<defs><mask id="m" maskUnits="userSpaceOnUse">' +

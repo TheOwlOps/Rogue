@@ -3,7 +3,7 @@
  *
  * `engine.sample()` sort des coordonnees en unites de viewBox, et ces deux nombres en sont
  * la definition : sans eux, une sortie du moteur ne veut rien dire. Ils vivaient dans
- * `BloubBot.vue`, donc hors d'atteinte — un `<script setup>` n'exporte rien — et
+ * `TheOwlOpsBot.vue`, donc hors d'atteinte — un `<script setup>` n'exporte rien — et
  * `export.ts` en redisait un a la main avec le commentaire qui nommait le probleme.
  *
  * Ils sont ici parce que `src/bot/` est ce qui se lit et se consomme du dehors : le

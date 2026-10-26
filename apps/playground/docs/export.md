@@ -64,7 +64,7 @@ eyes, the rest antialiasing.
 
 ## The eyes export OPAQUE, in `paper`, and that's a win
 
-A paper-coloured `<path>` sits under the body (`BloubBot.vue`), so the exported image
+A paper-coloured `<path>` sits under the body (`TheOwlOpsBot.vue`), so the exported image
 keeps light eyes on a dark background: real holes would make them disappear there.
 Don't "fix" this into transparency.
 
@@ -91,7 +91,7 @@ size. So the body is emitted once, static, and all the weight of a bot animation
 gaze. `liveliness` says the same thing in words: "toute la vie passe par le regard et les
 clignements".
 
-**The drawing is not rebuilt.** `svgAnime` takes the SVG `BloubBot` already rendered for
+**The drawing is not rebuilt.** `svgAnime` takes the SVG `TheOwlOpsBot` already rendered for
 the first keyframe and swaps each eye's `transform` attribute for an animated class. One
 source of drawing, same rule as the still export.
 
@@ -193,7 +193,7 @@ before counting the arcs.
 **`frozenAt` does not walk the montage, and `seek` is not enough either.** `apply()` dates
 the engine with `clock`, which only advances in the rAF loop and therefore stays at 0 while
 frozen: every state change would register at t=0 and the cross-fades at block joints would
-be wrong. Hence `rendAt(t)` on `BloubBot`: it resolves the block with `blockAt` and calls
+be wrong. Hence `rendAt(t)` on `TheOwlOpsBot`: it resolves the block with `blockAt` and calls
 `setState` with the block's **absolute** offset, reproducing `tick()` without a clock. Proven
 by measurement: across a joint the silhouette moves 17.6 → 7.0 → 2.1 → 0.36 → 0.02 over
 ~0.3 s, the decay of an exponential ease-out. A broken morph would show one single jump.

@@ -111,7 +111,7 @@ describe('montage de l arrivee', () => {
  *
  * La logique de lecture est reproduite ici plutot qu'importee parce qu'elle vit
  * dans un composant Vue, hors de portee de ces tests sans DOM. Elle tient en
- * quelques lignes et suit `BloubBot.apply`.
+ * quelques lignes et suit `TheOwlOpsBot.apply`.
  */
 describe('fluidite de l arrivee', () => {
   const cercle = SHAPE_BY_ID.get('cercle')!.radii

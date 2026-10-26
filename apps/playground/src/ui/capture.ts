@@ -11,7 +11,7 @@
  */
 
 import { createApp, h, nextTick, ref } from 'vue'
-import BloubBot from '@/components/BloubBot.vue'
+import TheOwlOpsBot from '@/components/TheOwlOpsBot.vue'
 import type { Block } from '@/bot/cycles'
 import { gifAnime, gifIndexe, indexe, nouvellePalette, recense, svgAnime } from './anime'
 import { arrete, DEMI_ECRAN, sansCommentaires, viewBoxExport } from './export'
@@ -255,7 +255,7 @@ export interface ReglagesBot {
  * a une date d'horloge quelconque, alors qu'ici on veut une sequence
  * reproductible qui commence au debut. C'est possible parce que `engine.sample(t)`
  * est une fonction pure du temps — la meme date redonne toujours la meme image —
- * et parce qu'un `BloubBot` a qui on donne `frozenAt` ne lance aucune boucle
+ * et parce qu'un `TheOwlOpsBot` a qui on donne `frozenAt` ne lance aucune boucle
  * d'animation ni aucun ecouteur : on le fait avancer nous-memes.
  *
  * Le meme composant sert donc a l'ecran et a l'export : une seule source de
@@ -283,7 +283,7 @@ export async function sequenceDuBot<T>(
   const date = ref(0)
   const app = createApp({
     render: () =>
-      h(BloubBot, { ...reglages, size: taille, frozenAt: date.value, ...(paper ? { paper } : {}) })
+      h(TheOwlOpsBot, { ...reglages, size: taille, frozenAt: date.value, ...(paper ? { paper } : {}) })
   })
   app.mount(hote)
 
@@ -313,7 +313,7 @@ export async function sequenceDuBot<T>(
  * Le rendu passe par `rendAt` et non par `frozenAt` : seul `rendAt` parcourt les
  * blocs en datant chaque changement d'etat a son offset absolu, ce qui donne les
  * memes fondus aux jointures que la lecture temps reel. Voir sa doc dans
- * `BloubBot.vue`.
+ * `TheOwlOpsBot.vue`.
  */
 export interface LecteurHorsEcran {
   /** Rend l'instant `t` du cycle et renvoie le SVG a lire. */
@@ -334,7 +334,7 @@ export async function ouvreCycle(
   const bot = ref<{ rendAt: (t: number) => void } | null>(null)
   const app = createApp({
     render: () =>
-      h(BloubBot, {
+      h(TheOwlOpsBot, {
         ...reglages,
         size: taille,
         cycle: blocs,
