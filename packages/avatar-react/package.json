@@ -1,0 +1,42 @@
+{
+  "author": "TheOwlOps",
+  "dependencies": {
+    "@theowlops/rogue-avatar-core": "workspace:*"
+  },
+  "description": "React component for the Rogue animated avatar: <RogueAvatar phase=\"working\" />.",
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "keywords": [
+    "avatar",
+    "react",
+    "chat",
+    "bot",
+    "svg",
+    "animation"
+  ],
+  "license": "MIT",
+  "name": "@theowlops/rogue-avatar-react",
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "repository": {
+    "directory": "packages/avatar-react",
+    "type": "git",
+    "url": "git+https://github.com/TheOwlOps/Rogue.git"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.2.0"
+}

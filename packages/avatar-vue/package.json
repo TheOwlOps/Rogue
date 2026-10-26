@@ -1,0 +1,42 @@
+{
+  "author": "TheOwlOps",
+  "dependencies": {
+    "@theowlops/rogue-avatar-core": "workspace:*"
+  },
+  "description": "Vue component for the Rogue animated avatar: <RogueAvatar phase=\"working\" />.",
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vue": "^3.5.41",
+    "vue-tsc": "^3.3.9"
+  },
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    }
+  },
+  "keywords": [
+    "avatar",
+    "vue",
+    "chat",
+    "bot",
+    "svg",
+    "animation"
+  ],
+  "license": "MIT",
+  "name": "@theowlops/rogue-avatar-vue",
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "repository": {
+    "directory": "packages/avatar-vue",
+    "type": "git",
+    "url": "git+https://github.com/TheOwlOps/Rogue.git"
+  },
+  "scripts": {
+    "typecheck": "vue-tsc -p tsconfig.json"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.2.0"
+}

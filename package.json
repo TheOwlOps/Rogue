@@ -1,0 +1,1 @@
+{"license":"MIT","name":"rogue","packageManager":"pnpm@11.17.0","private":true,"scripts":{"build":"pnpm -r --filter=./packages/* build && pnpm --filter @theowlops/rogue-playground build","dev":"pnpm --filter @theowlops/rogue-playground dev","test":"pnpm -r test"},"version":"0.2.0"}

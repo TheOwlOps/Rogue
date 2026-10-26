@@ -32,6 +32,108 @@ Rogue is **local-first**: the runtime, state, memory, and logs live on your mach
 
 ---
 
+## 🖼️ Available today: the Rogue Avatar SDK
+
+The first piece of Rogue you can use **right now** lives in this repository: the **avatar engine** — the living face a Rogue agent wears in a chat app. A pure-SVG, morphing bot avatar with **66 animation states, 20 shapes, 28 expressions, and 36 colours**, packaged as SDKs so any chat app can drop it in and drive it with one call: *the bot is thinking… the bot is working… the bot is done.*
+
+### Packages
+
+| Package | What it is |
+|---|---|
+| [`@theowlops/rogue-avatar-core`](packages/avatar-core) | Framework-agnostic engine + SVG renderer + DOM player. Zero dependencies, pure TypeScript. |
+| [`@theowlops/rogue-avatar-react`](packages/avatar-react) | `<RogueAvatar phase="working" />` for React apps |
+| [`@theowlops/rogue-avatar-vue`](packages/avatar-vue) | `<RogueAvatar phase="working" />` for Vue apps |
+| [`apps/playground`](apps/playground) | The full avatar studio (customiser, animation timeline, GIF/PNG export) — run it to explore every state, shape, and expression |
+
+### Use it in a chat app
+
+Vanilla / any framework, via the core player:
+
+```ts
+import { createAvatar } from '@theowlops/rogue-avatar-core'
+
+const avatar = createAvatar(document.querySelector('#bot-avatar')!, {
+  size: 96,
+  shape: 'cercle',        // any of the 20 shapes
+  color: 'encre',         // any of the 36 colours
+  expression: 'neutre'    // any of the 28 rest expressions
+})
+
+avatar.setPhase('thinking')   // while the request is in flight
+avatar.setPhase('working')    // while the agent runs tools
+avatar.setPhase('typing')     // while the answer streams in
+avatar.setPhase('idle')       // when it's done
+avatar.setPhase('celebrating')// when it nailed something 🎉
+```
+
+React:
+
+```tsx
+import { RogueAvatar } from '@theowlops/rogue-avatar-react'
+
+<RogueAvatar phase={busy ? 'working' : 'idle'} size={40} shape="etoile" color="saphir" />
+```
+
+Vue:
+
+```vue
+<script setup>
+import { RogueAvatar } from '@theowlops/rogue-avatar-vue'
+</script>
+
+<RogueAvatar :phase="busy ? 'working' : 'idle'" :size="40" />
+```
+
+### Chat phases
+
+Chat apps speak in phases, not animation states — so the SDK does too. Phases that need to *keep moving* (thinking, working) play a looping cycle of states rather than one pinned gesture.
+
+| Phase | Meaning | Plays |
+|---|---|---|
+| `offline` / `sleeping` | Bot away | `sleep` |
+| `idle` | Resting, breathing, blinking | `idle` |
+| `listening` | User is speaking / mic open | `wide` |
+| `thinking` | Waiting on the model | cycle: thinking → ponder → wide |
+| `working` | Running tools | cycle: play → orbit → comet → burst |
+| `typing` | Answer is streaming | `thinking` (the three dots) |
+| `speaking` | Reading the answer aloud | cycle: play → wave |
+| `happy` | Positive moment | cycle: dance → heart → sparkle |
+| `celebrating` | Task completed with flair | cycle: burst → fireworks → confetti → dance |
+| `error` | Something went wrong | `dizzy` |
+
+Need finer control? Skip phases and drive the engine directly — all 66 states, custom cycles, shapes, expressions:
+
+```ts
+avatar.setState('galaxy')                                   // one state
+avatar.setCycle([{ state: 'rocket', duration: 2 },          // your own montage
+                 { state: 'ufo', duration: 3 }])
+avatar.setShape('coeur'); avatar.setColor('corail'); avatar.setExpression('amoureux')
+```
+
+Or render without the player — the engine is a pure function of time, ideal for SSR and snapshots:
+
+```ts
+import { BotEngine, frameToSvg } from '@theowlops/rogue-avatar-core'
+
+const engine = new BotEngine(100, 'orbit')
+const svgString = frameToSvg(engine.sample(0.8))   // a complete <svg>…</svg>
+```
+
+### Run the playground studio
+
+```bash
+git clone https://github.com/TheOwlOps/Rogue.git
+cd Rogue
+pnpm install
+pnpm dev        # http://localhost:5190 — customiser, timeline, planche, exports
+pnpm test       # engine + SDK + studio test suites
+pnpm build      # build all packages and the studio
+```
+
+> The avatar engine is derived from [bloub](https://github.com/jeremy-prt/bloub) by Jérémy Perret (MIT) — see [NOTICE.md](NOTICE.md). The 100-entry expansion pack (52 states, 12 shapes, 12 expressions, 24 colours) is documented in [packages/avatar-core/EXPANSION.md](packages/avatar-core/EXPANSION.md).
+
+---
+
 ## Why Rogue?
 
 | Problem with hand-rolled agent scripts | How Rogue solves it |
@@ -437,13 +539,15 @@ Rogue is built to run unattended **without** running away:
 ```text
 rogue/
 ├── packages/
-│   ├── core/          # orchestrator, task graph, run lifecycle
-│   ├── engine/        # execution engine: tools, sandbox, budgets, approvals
-│   ├── memory/        # persistent agent + swarm memory
-│   └── cli/           # the `rogue` command-line interface
-├── examples/          # runnable example swarms
-└── docs/              # design notes and ADRs
+│   ├── avatar-core/   # the avatar engine + SDK (renderer, player, chat phases)
+│   ├── avatar-react/  # <RogueAvatar /> for React
+│   └── avatar-vue/    # <RogueAvatar /> for Vue
+├── apps/
+│   └── playground/    # the avatar studio (customiser, timeline, exports)
+└── .github/workflows/ # CI: install, build, test the whole workspace
 ```
+
+The orchestration runtime (orchestrator, execution engine, memory, CLI) is in design — its packages will land alongside the avatar SDK as they are built.
 
 ---
 
