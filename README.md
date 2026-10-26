@@ -64,6 +64,6 @@ These avatars are the faces of **Rogue**, an autonomous multi-agent orchestratio
 
 ## Credits
 
-Engine derived from [bloub](https://github.com/jeremy-prt/bloub) by **Jérémy Perret** (MIT) — see [NOTICE.md](NOTICE.md). The 100-entry expansion pack, SDK, chat demo and studio features were built by TheOwlOps.
+Engine derived from an SVG avatar engine by **Jérémy Perret** (MIT) — see [NOTICE.md](NOTICE.md). The 100-entry expansion pack, SDK, chat demo and studio features were built by TheOwlOps.
 
 [MIT](LICENSE) © TheOwlOps and contributors.

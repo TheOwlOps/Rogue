@@ -23,8 +23,8 @@ SOFTWARE.
 ---
 
 Portions of this software — the avatar animation engine in
-`packages/avatar-core/src/bot/` — are derived from **bloub** by Jérémy Perret
-(https://github.com/jeremy-prt/bloub), also MIT licensed. Its copyright notice:
+`packages/avatar-core/src/bot/` — are derived from an avatar engine by
+Jérémy Perret, also MIT licensed. Its copyright notice:
 
 MIT License
 
