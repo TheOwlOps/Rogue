@@ -47,6 +47,18 @@ export type ExpressionId =
   | 'dodo'
   | 'hypnotise'
   | 'gene'
+  | 'espiegle'
+  | 'taquin'
+  | 'diablotin'
+  | 'complice'
+  | 'farceur'
+  | 'ricaneur'
+  | 'joueur'
+  | 'menteur'
+  | 'provocateur'
+  | 'narquois'
+  | 'effronte'
+  | 'coquin'
   | 'neutre'
   | 'attentif'
   | 'surpris'
@@ -350,6 +362,90 @@ export const EXPRESSIONS: BotExpression[] = [
     gaze: { yaw: -20, pitch: 14, roll: -5 },
     split: 14.5,
     eyes: pair(0.18, 0.26, -12)
+  },
+  {
+    // pack 3, les espiegles : regard de cote et arcs joyeux, il prepare un coup
+    id: 'espiegle',
+    gaze: { yaw: -20, pitch: 4, roll: -4 },
+    split: 16.5,
+    eyes: [eye(0.3, 0.16, 12), eye(0.3, 0.14, -12)]
+  },
+  {
+    // un oeil ferme, l'autre en arc moqueur : la taquinerie
+    id: 'taquin',
+    gaze: { yaw: 12, pitch: 6, roll: 5 },
+    split: 16,
+    eyes: [eye(0.42, 0.09), eye(0.28, 0.2, 14)]
+  },
+  {
+    // colere en miniature mais regard par en dessous : le petit demon
+    id: 'diablotin',
+    gaze: { yaw: 4, pitch: -10, roll: 0 },
+    split: 16.5,
+    eyes: pair(0.34, 0.16, 24)
+  },
+  {
+    // le clin d'oeil enorme du complot, l'autre oeil ecarquille
+    id: 'complice',
+    gaze: { yaw: 12, pitch: -2, roll: -6 },
+    split: 16.5,
+    eyes: [eye(0.4, 0.08), eye(0.26, 0.46)]
+  },
+  {
+    // arcs serres et tete rejetee : le farceur vient de pieger quelqu'un
+    id: 'farceur',
+    gaze: { yaw: -10, pitch: 14, roll: 0 },
+    split: 18.5,
+    eyes: pair(0.34, 0.12, 22)
+  },
+  {
+    // deux yeux inclines dans le meme sens, il rit sous cape
+    id: 'ricaneur',
+    gaze: { yaw: 16, pitch: 8, roll: -6 },
+    split: 16,
+    eyes: [eye(0.3, 0.18, 14), eye(0.28, 0.2, 14)]
+  },
+  {
+    // un oeil grand, un oeil petit : l'envie de jouer lui monte
+    id: 'joueur',
+    gaze: { yaw: -12, pitch: -4, roll: 8 },
+    split: 17,
+    eyes: [eye(0.3, 0.44), eye(0.2, 0.3)]
+  },
+  {
+    // regard qui fuit au maximum, yeux petits entrouverts : il ment
+    id: 'menteur',
+    gaze: { yaw: -24, pitch: 2, roll: 0 },
+    split: 15.5,
+    eyes: pair(0.24, 0.34, 0, 0.85)
+  },
+  {
+    // menton haut, paupieres lourdes, inclinaison inverse : la provocation
+    id: 'provocateur',
+    gaze: { yaw: 6, pitch: 16, roll: 0 },
+    split: 16.5,
+    eyes: pair(0.34, 0.2, -14, 0.65)
+  },
+  {
+    // un oeil mi-clos penche, l'autre placide : la moquerie tranquille
+    id: 'narquois',
+    gaze: { yaw: 20, pitch: 6, roll: -4 },
+    split: 16,
+    eyes: [eye(0.24, 0.36, 10, 0.5), eye(0.22, 0.42)]
+  },
+  {
+    // yeux ronds bien ouverts, tete penchee, de face : l'effronte
+    id: 'effronte',
+    gaze: { yaw: 0, pitch: -12, roll: -8 },
+    split: 17.5,
+    eyes: pair(0.3, 0.4)
+  },
+  {
+    // arcs joyeux asymetriques et regard fuyant : le coquin classique
+    id: 'coquin',
+    gaze: { yaw: -14, pitch: 6, roll: -5 },
+    split: 16.5,
+    eyes: [eye(0.3, 0.15, 18), eye(0.26, 0.13, -16)]
   }
 ]
 

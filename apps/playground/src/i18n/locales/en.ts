@@ -294,6 +294,18 @@ const en: typeof fr = {
     dodo: 'Fast asleep',
     hypnotise: 'Hypnotized',
     gene: 'Embarrassed',
+    espiegle: 'Mischievous',
+    taquin: 'Cheeky',
+    diablotin: 'Little devil',
+    complice: 'Conspirator',
+    farceur: 'Prankster',
+    ricaneur: 'Snickering',
+    joueur: 'Playful',
+    menteur: 'Liar',
+    provocateur: 'Provocative',
+    narquois: 'Mocking',
+    effronte: 'Bold',
+    coquin: 'Rascal',
   }
 }
 

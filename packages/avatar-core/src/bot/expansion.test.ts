@@ -26,7 +26,7 @@ describe('comptes du pack', () => {
     expect(STATES).toHaveLength(67) // 66 du catalogue + `swirl`, la transition
     expect(SEQUENCE).toHaveLength(66)
     expect(SHAPES).toHaveLength(20)
-    expect(EXPRESSIONS).toHaveLength(40)
+    expect(EXPRESSIONS).toHaveLength(52)
     expect(COLORS).toHaveLength(36)
     // 52 etats + 12 formes + 12 expressions + 24 couleurs du pack v0.2.
     // Les expressions comptent 12 ici et non `EXPRESSIONS.length - 16` :

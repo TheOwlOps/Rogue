@@ -201,7 +201,7 @@ onBeforeUnmount(teardown)
       </div>
 
       <p class="mt-5 text-center text-xs leading-relaxed text-[var(--muted)]">
-        One engine, a whole party: 67 animation states · 20 shapes · 40 expressions · 36 colours.<br />
+        One engine, a whole party: 67 animation states · 20 shapes · 52 expressions · 36 colours.<br />
         Powered by <code>@theowlops/rogue-avatar-core</code>.
       </p>
     </div>

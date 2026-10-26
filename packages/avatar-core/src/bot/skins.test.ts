@@ -125,7 +125,7 @@ const CORPS_DE_BASE = STATES.filter((s) => s.baseBody).map((s) => s.id)
 const SILHOUETTE_MESUREE = STATES.filter((s) => !s.baseBody).map((s) => s.id)
 
 describe('formes du personnalisateur', () => {
-  // 4100 combinaisons x 60 instants x deux contours depuis le pack d'extension (20 formes x 41 visages) : le test le plus lourd du depot, et le
+  // 5300 combinaisons x 60 instants x deux contours depuis le pack d'extension (20 formes x 53 visages) : le test le plus lourd du depot, et le
   // seul qui prouve ce que l'oeil voit.
   it("aucune forme ne laisse un oeil sortir de la silhouette", () => {
     const fautifs: string[] = []

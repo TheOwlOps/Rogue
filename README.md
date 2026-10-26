@@ -3,7 +3,7 @@
 # 🦉 Rogue — the living avatar for AI bots
 
 **One morphing avatar that thinks, works, types and celebrates — so your bot feels alive in any chat.**
-67 animation states · 20 shapes · 40 expressions · 36 colours · **28,800 looks**
+67 animation states · 20 shapes · 52 expressions · 36 colours · **37,440 looks**
 
 [![▶ Open the studio](https://img.shields.io/badge/▶_Open_the_studio-3b93f0?style=for-the-badge)](https://theowlops.github.io/Rogue/)
 [![💬 Chat with it](https://img.shields.io/badge/💬_Chat_with_it-0fa36b?style=for-the-badge)](https://theowlops.github.io/Rogue/chat.html)
@@ -23,7 +23,7 @@
 
 In the first minute you can:
 
-- 🎨 **Dress your bot** — 20 shapes, 40 faces, 36 colours, mixed freely (every combo is eye-safe, machine-verified)
+- 🎨 **Dress your bot** — 20 shapes, 52 faces, 36 colours, mixed freely (every combo is eye-safe, machine-verified)
 - 👆 **Tap a preset** — 36 ready-made characters: Classic, Cosmos, Candy, Sakura, Lava, Panda, Cyber, Ghost… plus a whole **Cute** shelf 🧸 — Mochi, Pudding, Cupcake, Boba, Bunny, Momo…
 - 🎲 **Hit Random** until one makes you smile, then **Copy share link** and send that exact look to a friend
 - 🎬 **Open Animations** — all 66 animations on a timeline; build your own montage, export it as a GIF

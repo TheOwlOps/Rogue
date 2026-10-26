@@ -10,7 +10,7 @@
  * 3. **The engine and catalogues** (`BotEngine`, `STATES`, `SHAPES`,
  *    `COLORS`, `EXPRESSIONS`) — the full low-level surface: a pure,
  *    clock-free animation engine (`sample(t)` is a function of time only)
- *    plus the complete catalogue of 66 states, 20 shapes, 40 expressions
+ *    plus the complete catalogue of 66 states, 20 shapes, 52 expressions
  *    and 36 colours.
  */
 export { createAvatar, showcaseCycle, type AvatarHandle, type AvatarOptions } from './player.js'

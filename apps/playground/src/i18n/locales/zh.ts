@@ -297,6 +297,18 @@ const zh: typeof fr = {
     dodo: '熟睡',
     hypnotise: '被催眠',
     gene: '尴尬',
+    espiegle: '调皮',
+    taquin: '俏皮',
+    diablotin: '小恶魔',
+    complice: '同谋',
+    farceur: '恶作剧',
+    ricaneur: '偷笑',
+    joueur: '贪玩',
+    menteur: '说谎',
+    provocateur: '挑衅',
+    narquois: '嘲讽',
+    effronte: '大胆',
+    coquin: '小淘气',
   }
 }
 

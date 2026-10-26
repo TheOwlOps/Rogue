@@ -266,7 +266,7 @@ onBeforeUnmount(() => {
       </div>
 
       <p class="mt-4 text-center text-xs leading-relaxed text-[var(--muted)]">
-        One engine, every face: 66 animation states · 20 shapes · 40 expressions · 36 colours.<br />
+        One engine, every face: 66 animation states · 20 shapes · 52 expressions · 36 colours.<br />
         Powered by <code>@theowlops/rogue-avatar-core</code> — phases, not plumbing.
       </p>
     </div>

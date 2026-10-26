@@ -319,5 +319,17 @@ export default {
     dodo: 'Dodo',
     hypnotise: 'Hypnotisé',
     gene: 'Gêné',
+    espiegle: 'Espiègle',
+    taquin: 'Taquin',
+    diablotin: 'Diablotin',
+    complice: 'Complice',
+    farceur: 'Farceur',
+    ricaneur: 'Ricaneur',
+    joueur: 'Joueur',
+    menteur: 'Menteur',
+    provocateur: 'Provocateur',
+    narquois: 'Narquois',
+    effronte: 'Effronté',
+    coquin: 'Coquin',
   }
 }
