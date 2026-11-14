@@ -10,9 +10,9 @@
 [![🎭 Put it on stage](https://img.shields.io/badge/🎭_Put_it_on_stage-7c5cd6?style=for-the-badge)](https://theowlops.github.io/Rogue/stage.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-<img src="docs/demo.gif" alt="The Rogue avatar in action: the galaxy state in the studio, the Avatar Party floor, the full state board, and a live chat where the bot thinks, works, types and celebrates" width="920" />
+<img src="docs/demo.gif" alt="The Rogue avatar in action: a crowned bot following the cursor in the studio, the fullscreen Stage where a bespectacled bot watches you and bursts into celebration when poked, and its celebrating face in a live chat" width="920" />
 
-*The studio's galaxy state · the Avatar Party · all 66 states on one board · the bot alive in a chat — [try it live](https://theowlops.github.io/Rogue/)*
+*Dressed up in the studio · alive and watching you on the Stage · celebrating in chat — [try it live](https://theowlops.github.io/Rogue/)*
 
 </div>
 
