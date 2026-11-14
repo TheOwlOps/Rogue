@@ -15,7 +15,14 @@
  */
 export { createAvatar, showcaseCycle, type AvatarHandle, type AvatarOptions } from './player.js'
 export { renderFrame, frameToSvg, type RenderOptions } from './render.js'
-export { CHAT_PHASE_PLANS, phasePlan, type ChatPhase, type PhasePlan } from './chat.js'
+export {
+  CHAT_PHASE_PLANS,
+  CHAT_PHASE_EXPRESSIONS,
+  phasePlan,
+  type ChatPhase,
+  type PhasePlan
+} from './chat.js'
+export { pointerLook, LOOK_YAW_MAX, LOOK_PITCH_MAX, LOOK_PITCH } from './bot/look.js'
 
 export { BotEngine, type BotFrame, type Look, type RenderedEye } from './bot/engine.js'
 export {

@@ -16,10 +16,11 @@
  * avatar.destroy()
  * ```
  */
-import { phasePlan, type ChatPhase } from './chat.js'
+import { CHAT_PHASE_EXPRESSIONS, phasePlan, type ChatPhase } from './chat.js'
 import { defaultCycle, type Block } from './bot/cycles.js'
-import { BotEngine } from './bot/engine.js'
+import { BotEngine, type Look } from './bot/engine.js'
 import { EXPRESSION_BY_ID, DEFAULT_EXPRESSION, type BotExpression } from './bot/expressions.js'
+import { pointerLook } from './bot/look.js'
 import { DEMI_VIEWBOX, RAYON } from './bot/repere.js'
 import {
   COLOR_BY_ID,
@@ -27,7 +28,7 @@ import {
   DEFAULT_SHAPE,
   SHAPE_BY_ID
 } from './bot/skins.js'
-import type { StateId } from './bot/states.js'
+import { STATE_BY_ID, type StateId } from './bot/states.js'
 import { renderFrame } from './render.js'
 
 export interface AvatarOptions {
@@ -49,6 +50,8 @@ export interface AvatarOptions {
   paper?: string
   /** Start with cycle playback paused (the avatar still breathes). Default false. */
   paused?: boolean
+  /** The head follows the visitor's pointer from the start. Default false. */
+  followPointer?: boolean
   /**
    * Freeze at this instant (seconds into the state) and don't start the
    * animation loop — for thumbnails and static previews. Setters still
@@ -70,6 +73,16 @@ export interface AvatarHandle {
   setColor(colorId: string): void
   /** Change the rest expression. */
   setExpression(expressionId: string): void
+  /** Aim the head (a `Look` target), or release it back to the state's own pose with `null`. */
+  setLook(look: Look | null): void
+  /**
+   * Follow the visitor's pointer with the head, measured against this
+   * avatar's own element. Only rest-face states are steered — elsewhere
+   * the gaze IS the animation. Touch pointers are ignored.
+   */
+  followPointer(): void
+  /** Stop following the pointer and release the head. */
+  stopFollowPointer(): void
   /** Pause cycle advancement (the avatar keeps breathing and blinking). */
   pause(): void
   /** Resume cycle advancement from where it stopped. */
@@ -89,8 +102,10 @@ export function createAvatar(el: HTMLElement, opts: AvatarOptions = {}): AvatarH
 
   let ink = COLOR_BY_ID.get(opts.color ?? DEFAULT_COLOR)?.hex ?? '#0a0a0c'
   const shapeRadii = SHAPE_BY_ID.get(opts.shape ?? DEFAULT_SHAPE)?.radii ?? null
+  /** The avatar's own face: phases borrow a face, then give this one back. */
+  let restExpressionId = opts.expression ?? DEFAULT_EXPRESSION
   const expression: BotExpression | null =
-    EXPRESSION_BY_ID.get(opts.expression ?? DEFAULT_EXPRESSION) ?? null
+    EXPRESSION_BY_ID.get(restExpressionId) ?? null
 
   const engine = new BotEngine(RAYON, opts.state ?? 'idle', shapeRadii, expression)
 
@@ -144,7 +159,47 @@ export function createAvatar(el: HTMLElement, opts: AvatarOptions = {}): AvatarH
         elapsedInBlock = clock - blockStart
       }
     }
+    if (following) aim()
     draw(clock)
+  }
+
+  /* ------------------------------------------------------- pointer follow */
+  let following = false
+  let pointer: { x: number; y: number } | null = null
+
+  const onPointerMove = (event: PointerEvent) => {
+    // A lifted finger would leave the gaze pinned to the last touch point.
+    if (event.pointerType === 'touch') return
+    pointer = { x: event.clientX, y: event.clientY }
+  }
+  const onPointerGone = () => {
+    pointer = null
+  }
+
+  /**
+   * Aim at the pointer for this frame. Only the DOM measuring lives here;
+   * the gaze rule itself is `pointerLook`. The rect is re-read every frame
+   * (layouts shift), and a zero-size rect is skipped outright: normalising
+   * by it would produce a NaN the engine would then keep forever.
+   */
+  function aim() {
+    // Only rest-face states are steered: elsewhere the gaze IS the
+    // animation (an orbit already sends the eyes around the sphere).
+    if (!STATE_BY_ID.get(engine.state)?.baseFace || !pointer) {
+      engine.setLook(null, clock)
+      return
+    }
+    const box = el.getBoundingClientRect()
+    if (!box.width || !box.height) return
+    const demiW = Math.max(1, window.innerWidth / 2)
+    const demiH = Math.max(1, window.innerHeight / 2)
+    engine.setLook(
+      pointerLook(
+        (pointer.x - (box.left + box.width / 2)) / demiW,
+        (pointer.y - (box.top + box.height / 2)) / demiH
+      ),
+      clock
+    )
   }
 
   const frozen = opts.frozenAt !== undefined
@@ -169,6 +224,10 @@ export function createAvatar(el: HTMLElement, opts: AvatarOptions = {}): AvatarH
       const plan = phasePlan(phase)
       if (plan.kind === 'state') handle.setState(plan.state)
       else handle.setCycle(plan.blocks)
+      // Each phase also wears a face; `null` restores the avatar's own.
+      const face = CHAT_PHASE_EXPRESSIONS[phase] ?? restExpressionId
+      engine.setExpression(EXPRESSION_BY_ID.get(face) ?? null, clock)
+      redrawFrozen()
     },
     setCycle(newBlocks: Block[]) {
       blocks = newBlocks.length ? newBlocks : null
@@ -185,8 +244,29 @@ export function createAvatar(el: HTMLElement, opts: AvatarOptions = {}): AvatarH
       else draw(clock)
     },
     setExpression(expressionId: string) {
+      restExpressionId = expressionId
       engine.setExpression(EXPRESSION_BY_ID.get(expressionId) ?? null, clock)
       redrawFrozen()
+    },
+    setLook(look: Look | null) {
+      engine.setLook(look, clock)
+      redrawFrozen()
+    },
+    followPointer() {
+      if (following || frozen) return
+      following = true
+      window.addEventListener('pointermove', onPointerMove)
+      document.addEventListener('pointerleave', onPointerGone)
+      window.addEventListener('blur', onPointerGone)
+    },
+    stopFollowPointer() {
+      if (!following) return
+      following = false
+      pointer = null
+      window.removeEventListener('pointermove', onPointerMove)
+      document.removeEventListener('pointerleave', onPointerGone)
+      window.removeEventListener('blur', onPointerGone)
+      engine.setLook(null, clock)
     },
     pause() {
       playing = false
@@ -200,6 +280,7 @@ export function createAvatar(el: HTMLElement, opts: AvatarOptions = {}): AvatarH
       return engine.state
     },
     destroy() {
+      handle.stopFollowPointer()
       cancelAnimationFrame(raf)
       el.innerHTML = ''
     }
@@ -209,6 +290,7 @@ export function createAvatar(el: HTMLElement, opts: AvatarOptions = {}): AvatarH
   if (opts.cycle) handle.setCycle(opts.cycle)
   else if (opts.phase) handle.setPhase(opts.phase)
   else if (opts.state) engine.setState(opts.state, 0)
+  if (opts.followPointer) handle.followPointer()
 
   return handle
 }

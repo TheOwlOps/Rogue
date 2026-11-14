@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { CHAT_PHASE_PLANS, phasePlan } from './chat.js'
+import { CHAT_PHASE_EXPRESSIONS, CHAT_PHASE_PLANS, phasePlan, type ChatPhase } from './chat.js'
 import { BotEngine } from './bot/engine.js'
+import { EXPRESSION_BY_ID } from './bot/expressions.js'
 import { STATE_BY_ID, type StateId } from './bot/states.js'
 import { frameToSvg, renderFrame } from './render.js'
 
@@ -43,5 +44,18 @@ describe('SDK render layer', () => {
     }
     expect(phasePlan('working').kind).toBe('cycle')
     expect(phasePlan('idle')).toEqual({ kind: 'state', state: 'idle' as StateId })
+  })
+
+  it('every chat phase wears a real face, or restores the avatar\u2019s own', () => {
+    const phases = Object.keys(CHAT_PHASE_PLANS) as ChatPhase[]
+    expect(Object.keys(CHAT_PHASE_EXPRESSIONS).sort()).toEqual([...phases].sort())
+    for (const phase of phases) {
+      const face = CHAT_PHASE_EXPRESSIONS[phase]
+      if (face !== null) expect(EXPRESSION_BY_ID.has(face), `${phase}: ${face}`).toBe(true)
+    }
+    // presence phases impose nothing; mood phases must actually change the face
+    expect(CHAT_PHASE_EXPRESSIONS.idle).toBeNull()
+    expect(CHAT_PHASE_EXPRESSIONS.thinking).not.toBeNull()
+    expect(CHAT_PHASE_EXPRESSIONS.celebrating).not.toBeNull()
   })
 })

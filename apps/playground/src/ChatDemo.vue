@@ -143,7 +143,7 @@ function pokeAvatar() {
 
 onMounted(() => {
   if (!host.value) return
-  avatar = createAvatar(host.value, { size: 56, paper: '#ffffff' })
+  avatar = createAvatar(host.value, { size: 56, paper: '#ffffff', followPointer: true })
 })
 
 onBeforeUnmount(() => {
