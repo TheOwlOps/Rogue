@@ -40,6 +40,10 @@ const zh: typeof fr = {
     bow: '蝴蝶结',
     glasses: '眼镜',
     shades: '墨镜'
+,
+    headphones: '耳机',
+    halo: '光环',
+    antenna: '天线'
   },
 
   panel: {

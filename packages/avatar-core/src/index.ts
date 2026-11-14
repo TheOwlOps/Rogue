@@ -14,6 +14,16 @@
  *    and 36 colours.
  */
 export { createAvatar, showcaseCycle, type AvatarHandle, type AvatarOptions } from './player.js'
+export {
+  ACCESSORIES,
+  ACCESSORY_IDS,
+  accessoryMarkup,
+  accessoryOrNull,
+  eyeCenters,
+  pathBounds,
+  type AccessoryId,
+  type Bounds
+} from './accessories.js'
 export { renderFrame, frameToSvg, type RenderOptions } from './render.js'
 export {
   CHAT_PHASE_PLANS,

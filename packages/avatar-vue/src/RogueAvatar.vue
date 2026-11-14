@@ -25,6 +25,7 @@ const props = withDefaults(
     shape?: string
     color?: string
     expression?: string
+    accessory?: string
     paper?: string
   }>(),
   { size: 96 }
@@ -40,6 +41,7 @@ onMounted(() => {
     shape: props.shape,
     color: props.color,
     expression: props.expression,
+    accessory: props.accessory,
     paper: props.paper
   })
   if (props.phase) handle.setPhase(props.phase)
@@ -65,6 +67,10 @@ watch(
 watch(
   () => props.expression,
   (e) => e && handle?.setExpression(e)
+)
+watch(
+  () => props.accessory,
+  (a) => a && handle?.setAccessory(a)
 )
 
 onBeforeUnmount(() => {

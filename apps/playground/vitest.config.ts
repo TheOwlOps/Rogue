@@ -6,12 +6,14 @@ import { defineConfig } from 'vitest/config'
 // real core package sources (`@/bot/*` -> packages/avatar-core/src/bot/*).
 // The Vue plugin exists for `ui/capture.test.ts`, which mounts TheOwlOpsBot.vue.
 const coreBot = fileURLToPath(new URL('../../packages/avatar-core/src/bot', import.meta.url))
+const coreIndex = fileURLToPath(new URL('../../packages/avatar-core/src/index.ts', import.meta.url))
 const src = fileURLToPath(new URL('./src', import.meta.url))
 
 export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: [
+      { find: /^@theowlops\/rogue-avatar-core$/, replacement: coreIndex },
       { find: /^@\/bot(?=\/|$)/, replacement: coreBot },
       { find: /^@(?=\/|$)/, replacement: src }
     ]

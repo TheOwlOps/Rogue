@@ -16,6 +16,7 @@
  * avatar inside your own `<svg>`, or `frameToSvg` for a complete standalone
  * `<svg>` element as a string.
  */
+import { accessoryMarkup, accessoryOrNull, type AccessoryId } from './accessories.js'
 import { NOTIF_BLUE, type DotRender } from './bot/decor.js'
 import type { BotFrame } from './bot/engine.js'
 import { RAYON, DEMI_VIEWBOX } from './bot/repere.js'
@@ -39,6 +40,14 @@ export interface RenderOptions {
   size?: number
   /** Accessible label for the standalone `<svg>`. Default `bot avatar`. */
   label?: string
+  /** Accessory drawn over the finished frame (`ACCESSORIES`). Default none. */
+  accessory?: AccessoryId | string
+  /**
+   * Whether a rest face is showing. Glasses-type accessories only exist
+   * then; hat-type ones always draw. Default true (a sampled frame used
+   * standalone is presumed to be a rest frame).
+   */
+  eyesVisible?: boolean
 }
 
 const n = (v: number): string => {
@@ -109,6 +118,11 @@ export function renderFrame(frame: BotFrame, opts: RenderOptions = {}): string {
     out += `<circle cx="${n(frame.notif.x)}" cy="${n(frame.notif.y)}" r="${n(frame.notif.r)}" fill="${NOTIF_BLUE}"/>`
   }
   out += `<g fill="none" stroke-linecap="round">${arcsFront}</g>`
+  const accId = accessoryOrNull(opts.accessory ?? null)
+  if (accId) {
+    const acc = accessoryMarkup(frame, accId, { eyesVisible: opts.eyesVisible ?? true })
+    if (acc) out += `<g>${acc}</g>`
+  }
   return out
 }
 

@@ -30,7 +30,7 @@ const PRESETS: Array<{
   accessory?: string
 }> = [
   { name: 'Classic', shape: 'cercle', color: 'encre', expression: 'neutre' },
-  { name: 'Cosmos', shape: 'etoile', color: 'saphir', expression: 'reveur' },
+  { name: 'Cosmos', shape: 'etoile', color: 'saphir', expression: 'reveur', accessory: 'antenna' },
   { name: 'Candy', shape: 'coeur', color: 'corail', expression: 'amoureux' },
   { name: 'Citrus', shape: 'soleil', color: 'citron', expression: 'ebloui' },
   { name: 'Forest', shape: 'blob', color: 'emeraude', expression: 'zen' },
@@ -45,6 +45,7 @@ const PRESETS: Array<{
   { name: 'Panda', shape: 'ovale', color: 'creme', expression: 'somnolent' },
   { name: 'Peachy', shape: 'poire', color: 'peche', expression: 'timide' },
   { name: 'Cyber', shape: 'carre', color: 'cyan', expression: 'confus', accessory: 'shades' },
+  { name: 'DJ', shape: 'squircle', color: 'violet', expression: 'excite', accessory: 'headphones' },
   { name: 'Vamp', shape: 'capsule', color: 'bordeaux', expression: 'moqueur' },
   { name: 'Lemon', shape: 'pilule', color: 'or', expression: 'surpris' },
   { name: 'Matcha', shape: 'pentagone', color: 'kaki', expression: 'blase' },
@@ -52,7 +53,7 @@ const PRESETS: Array<{
   { name: 'Bubblegum', shape: 'cercle', color: 'fuchsia', expression: 'hilare' },
   { name: 'Lagoon', shape: 'capsule', color: 'turquoise', expression: 'bahi' },
   { name: 'Sunset', shape: 'ovale', color: 'orange', expression: 'triste' },
-  { name: 'Ghost', shape: 'blob', color: 'argent', expression: 'effraye' }
+  { name: 'Ghost', shape: 'blob', color: 'argent', expression: 'effraye', accessory: 'halo' }
 ]
 
 /**

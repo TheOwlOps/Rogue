@@ -24,7 +24,7 @@
 
 In the first minute you can:
 
-- 🎨 **Dress your bot** — 20 shapes, 52 faces, 36 colours, mixed freely (every combo is eye-safe, machine-verified) — then crown it: caps, crowns, party hats, bows, glasses and shades on top
+- 🎨 **Dress your bot** — 20 shapes, 52 faces, 36 colours, mixed freely (every combo is eye-safe, machine-verified) — then crown it: caps, crowns, party hats, bows, headphones, halos, antennas, glasses and shades on top — in the studio, in the SDK, everywhere
 - 👆 **Tap a preset** — 36 ready-made characters: Classic, Cosmos, Candy, Sakura, Lava, Panda, Cyber, Ghost… plus a whole **Cute** shelf 🧸 — Mochi, Pudding, Cupcake, Boba, Bunny, Momo…
 - 🎲 **Hit Random** until one makes you smile, then **Copy share link** and send that exact look to a friend
 - 🎬 **Open Animations** — all 66 animations on a timeline; build your own montage, export it as a GIF
@@ -54,6 +54,7 @@ avatar.setPhase('typing')    // answer streaming
 avatar.setPhase('idle')      // done
 avatar.setState('galaxy')    // or any of the 67 states, directly
 avatar.followPointer()       // at rest, the head watches the visitor's cursor
+avatar.setAccessory('crown') // accessories live in the engine: exports wear them too
 ```
 
 React and Vue wrappers ship too (`<RogueAvatar phase="working" />`). Packages: [`avatar-core`](packages/avatar-core) · [`avatar-react`](packages/avatar-react) · [`avatar-vue`](packages/avatar-vue) · studio in [`apps/playground`](apps/playground).

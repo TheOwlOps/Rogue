@@ -35,6 +35,10 @@ const en: typeof fr = {
     bow: 'Bow',
     glasses: 'Glasses',
     shades: 'Sunglasses'
+,
+    headphones: 'Headphones',
+    halo: 'Halo',
+    antenna: 'Antenna'
   },
 
   panel: {

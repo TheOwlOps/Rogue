@@ -47,6 +47,10 @@ export default {
     bow: 'Nœud',
     glasses: 'Lunettes',
     shades: 'Lunettes de soleil'
+,
+    headphones: 'Casque',
+    halo: 'Auréole',
+    antenna: 'Antenne'
   },
 
   panel: {

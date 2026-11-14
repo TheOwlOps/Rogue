@@ -19,6 +19,8 @@ export interface RogueAvatarProps {
   color?: string
   /** Rest-expression id from the core catalogue. */
   expression?: string
+  /** Accessory id from the core catalogue (`ACCESSORIES`). */
+  accessory?: string
   /** Background colour behind the avatar (the eyes see through to it). */
   paper?: string
   className?: string
@@ -35,11 +37,11 @@ export interface RogueAvatarProps {
 export function RogueAvatar(props: RogueAvatarProps) {
   const hostRef = useRef<HTMLDivElement>(null)
   const handleRef = useRef<AvatarHandle | null>(null)
-  const { phase, state, size = 96, shape, color, expression, paper } = props
+  const { phase, state, size = 96, shape, color, expression, accessory, paper } = props
 
   useEffect(() => {
     if (!hostRef.current) return
-    const handle = createAvatar(hostRef.current, { size, shape, color, expression, paper })
+    const handle = createAvatar(hostRef.current, { size, shape, color, expression, accessory, paper })
     handleRef.current = handle
     return () => {
       handle.destroy()
@@ -65,6 +67,9 @@ export function RogueAvatar(props: RogueAvatarProps) {
   useEffect(() => {
     if (expression) handleRef.current?.setExpression(expression)
   }, [expression])
+  useEffect(() => {
+    if (accessory) handleRef.current?.setAccessory(accessory)
+  }, [accessory])
 
   return (
     <div

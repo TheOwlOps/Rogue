@@ -16,6 +16,7 @@
  * avatar.destroy()
  * ```
  */
+import { accessoryOrNull, type AccessoryId } from './accessories.js'
 import { CHAT_PHASE_EXPRESSIONS, phasePlan, type ChatPhase } from './chat.js'
 import { defaultCycle, type Block } from './bot/cycles.js'
 import { BotEngine, type Look } from './bot/engine.js'
@@ -52,6 +53,8 @@ export interface AvatarOptions {
   paused?: boolean
   /** The head follows the visitor's pointer from the start. Default false. */
   followPointer?: boolean
+  /** Accessory worn from the start (`ACCESSORIES`). Default none. */
+  accessory?: AccessoryId | string
   /**
    * Freeze at this instant (seconds into the state) and don't start the
    * animation loop — for thumbnails and static previews. Setters still
@@ -73,6 +76,8 @@ export interface AvatarHandle {
   setColor(colorId: string): void
   /** Change the rest expression. */
   setExpression(expressionId: string): void
+  /** Change the accessory (`ACCESSORIES` id, or `none`/unknown to take it off). */
+  setAccessory(accessoryId: AccessoryId | string | null): void
   /** Aim the head (a `Look` target), or release it back to the state's own pose with `null`. */
   setLook(look: Look | null): void
   /**
@@ -101,6 +106,7 @@ export function createAvatar(el: HTMLElement, opts: AvatarOptions = {}): AvatarH
   const VB = DEMI_VIEWBOX
 
   let ink = COLOR_BY_ID.get(opts.color ?? DEFAULT_COLOR)?.hex ?? '#0a0a0c'
+  let accessory: AccessoryId = accessoryOrNull(opts.accessory ?? null) ?? 'none'
   const shapeRadii = SHAPE_BY_ID.get(opts.shape ?? DEFAULT_SHAPE)?.radii ?? null
   /** The avatar's own face: phases borrow a face, then give this one back. */
   let restExpressionId = opts.expression ?? DEFAULT_EXPRESSION
@@ -119,7 +125,14 @@ export function createAvatar(el: HTMLElement, opts: AvatarOptions = {}): AvatarH
   const svg = el.firstElementChild as SVGSVGElement
 
   const draw = (t: number) => {
-    svg.innerHTML = renderFrame(engine.sample(t), { ink, paper, uid })
+    svg.innerHTML = renderFrame(engine.sample(t), {
+      ink,
+      paper,
+      uid,
+      accessory,
+      // Glasses live only on a rest face; the player knows the state.
+      eyesVisible: STATE_BY_ID.get(engine.state)?.baseFace === true
+    })
   }
 
   /* ------------------------------------------------------------ playback */
@@ -251,6 +264,11 @@ export function createAvatar(el: HTMLElement, opts: AvatarOptions = {}): AvatarH
     setLook(look: Look | null) {
       engine.setLook(look, clock)
       redrawFrozen()
+    },
+    setAccessory(accessoryId: AccessoryId | string | null) {
+      accessory = accessoryOrNull(accessoryId) ?? 'none'
+      if (frozen) redrawFrozen()
+      else draw(clock)
     },
     followPointer() {
       if (following || frozen) return
