@@ -23,6 +23,18 @@ const en: typeof fr = {
     settings: 'Settings',
     chat: 'Chat demo',
     party: 'Party'
+,
+    stage: 'Stage'
+  },
+
+  accessories: {
+    none: 'None',
+    cap: 'Cap',
+    crown: 'Crown',
+    party: 'Party hat',
+    bow: 'Bow',
+    glasses: 'Glasses',
+    shades: 'Sunglasses'
   },
 
   panel: {
@@ -30,6 +42,7 @@ const en: typeof fr = {
     shape: 'Shape',
     expression: 'Expression',
     color: 'Colour',
+    accessory: 'Accessory',
     random: 'Random',
     presets: 'Presets',
     cute: 'Cute',

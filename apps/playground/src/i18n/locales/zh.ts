@@ -28,6 +28,18 @@ const zh: typeof fr = {
     settings: '设置',
     chat: '聊天演示',
     party: '派对'
+,
+    stage: '舞台'
+  },
+
+  accessories: {
+    none: '无',
+    cap: '棒球帽',
+    crown: '皇冠',
+    party: '派对帽',
+    bow: '蝴蝶结',
+    glasses: '眼镜',
+    shades: '墨镜'
   },
 
   panel: {
@@ -35,6 +47,7 @@ const zh: typeof fr = {
     shape: '形状',
     expression: '表情',
     color: '颜色',
+    accessory: '配饰',
     random: '随机',
     presets: '预设',
     cute: '可爱',

@@ -2,12 +2,14 @@
 import { ref } from 'vue'
 import BotTile from '@/components/BotTile.vue'
 import { EXPRESSIONS } from '@/bot/expressions'
+import { ACCESSORIES } from '@/ui/accessories'
 import { COLORS, SHAPES } from '@/bot/skins'
 import { t } from '@/i18n'
 
 const shape = defineModel<string>('shape', { required: true })
 const color = defineModel<string>('color', { required: true })
 const expression = defineModel<string>('expression', { required: true })
+const accessory = defineModel<string>('accessory', { required: true })
 
 /**
  * Les vignettes sont figees a la meme date que la pose de repos : elles montrent
@@ -20,23 +22,29 @@ const PREVIEW_AT = 1
  * visage d'un coup. Les noms restent en anglais dans les trois langues — ce
  * sont des noms de personnages, pas des libelles d'interface.
  */
-const PRESETS: Array<{ name: string; shape: string; color: string; expression: string }> = [
+const PRESETS: Array<{
+  name: string
+  shape: string
+  color: string
+  expression: string
+  accessory?: string
+}> = [
   { name: 'Classic', shape: 'cercle', color: 'encre', expression: 'neutre' },
   { name: 'Cosmos', shape: 'etoile', color: 'saphir', expression: 'reveur' },
   { name: 'Candy', shape: 'coeur', color: 'corail', expression: 'amoureux' },
   { name: 'Citrus', shape: 'soleil', color: 'citron', expression: 'ebloui' },
   { name: 'Forest', shape: 'blob', color: 'emeraude', expression: 'zen' },
-  { name: 'Royal', shape: 'diamant', color: 'prune', expression: 'determine' },
+  { name: 'Royal', shape: 'diamant', color: 'prune', expression: 'determine', accessory: 'crown' },
   { name: 'Sakura', shape: 'fleur', color: 'rose', expression: 'heureux' },
   { name: 'Ocean', shape: 'goutte', color: 'ciel', expression: 'attentif' },
   { name: 'Lava', shape: 'triangle', color: 'rouge', expression: 'furieux' },
-  { name: 'Honey', shape: 'hexagone', color: 'ambre', expression: 'excite' },
+  { name: 'Honey', shape: 'hexagone', color: 'ambre', expression: 'excite', accessory: 'cap' },
   { name: 'Grape', shape: 'galet', color: 'violet', expression: 'sournois' },
   { name: 'Mint', shape: 'squircle', color: 'menthe', expression: 'curieux' },
   { name: 'Storm', shape: 'nuage', color: 'ardoise', expression: 'mefiant' },
   { name: 'Panda', shape: 'ovale', color: 'creme', expression: 'somnolent' },
   { name: 'Peachy', shape: 'poire', color: 'peche', expression: 'timide' },
-  { name: 'Cyber', shape: 'carre', color: 'cyan', expression: 'confus' },
+  { name: 'Cyber', shape: 'carre', color: 'cyan', expression: 'confus', accessory: 'shades' },
   { name: 'Vamp', shape: 'capsule', color: 'bordeaux', expression: 'moqueur' },
   { name: 'Lemon', shape: 'pilule', color: 'or', expression: 'surpris' },
   { name: 'Matcha', shape: 'pentagone', color: 'kaki', expression: 'blase' },
@@ -52,13 +60,19 @@ const PRESETS: Array<{ name: string; shape: string; color: string; expression: s
  * nuage, poire…), visages heureux ou timides. Noms de personnages kawaii —
  * ils restent en anglais dans les trois langues, comme les autres presets.
  */
-const CUTE_PRESETS: Array<{ name: string; shape: string; color: string; expression: string }> = [
+const CUTE_PRESETS: Array<{
+  name: string
+  shape: string
+  color: string
+  expression: string
+  accessory?: string
+}> = [
   { name: 'Mochi', shape: 'galet', color: 'creme', expression: 'heureux' },
   { name: 'Pudding', shape: 'poire', color: 'peche', expression: 'timide' },
   { name: 'Cupcake', shape: 'fleur', color: 'rose', expression: 'excite' },
   { name: 'Boba', shape: 'cercle', color: 'lavande', expression: 'reveur' },
-  { name: 'Mimi', shape: 'squircle', color: 'menthe', expression: 'zen' },
-  { name: 'Kiki', shape: 'etoile', color: 'ciel', expression: 'hilare' },
+  { name: 'Mimi', shape: 'squircle', color: 'menthe', expression: 'zen', accessory: 'bow' },
+  { name: 'Kiki', shape: 'etoile', color: 'ciel', expression: 'hilare', accessory: 'party' },
   { name: 'Peach', shape: 'nuage', color: 'saumon', expression: 'bahi' },
   { name: 'Bunny', shape: 'ovale', color: 'lilas', expression: 'amoureux' },
   { name: 'Tofu', shape: 'carre', color: 'sable', expression: 'somnolent' },
@@ -71,6 +85,7 @@ function applyPreset(p: (typeof PRESETS)[number]) {
   shape.value = p.shape
   color.value = p.color
   expression.value = p.expression
+  accessory.value = p.accessory ?? 'none'
 }
 
 const pick = <T,>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)]!
@@ -79,6 +94,7 @@ function randomize() {
   shape.value = pick(SHAPES).id
   color.value = pick(COLORS).id
   expression.value = pick(EXPRESSIONS).id
+  accessory.value = pick(ACCESSORIES).id
 }
 
 /**
@@ -88,7 +104,7 @@ function randomize() {
 const shared = ref(false)
 let sharedTimer = 0
 async function share() {
-  const url = `${location.origin}${location.pathname}#avatar=${shape.value}.${color.value}.${expression.value}`
+  const url = `${location.origin}${location.pathname}#avatar=${shape.value}.${color.value}.${expression.value}.${accessory.value}`
   try {
     await navigator.clipboard.writeText(url)
   } catch {
@@ -125,10 +141,16 @@ async function share() {
         v-for="p in PRESETS"
         :key="p.name"
         :label="p.name"
-        :selected="p.shape === shape && p.color === color && p.expression === expression"
+        :selected="
+          p.shape === shape &&
+          p.color === color &&
+          p.expression === expression &&
+          (p.accessory ?? 'none') === accessory
+        "
         :shape="p.shape"
         :color="p.color"
         :expression="p.expression"
+        :accessory="p.accessory ?? 'none'"
         :frozen-at="PREVIEW_AT"
         @click="applyPreset(p)"
       />
@@ -140,10 +162,16 @@ async function share() {
         v-for="p in CUTE_PRESETS"
         :key="p.name"
         :label="p.name"
-        :selected="p.shape === shape && p.color === color && p.expression === expression"
+        :selected="
+          p.shape === shape &&
+          p.color === color &&
+          p.expression === expression &&
+          (p.accessory ?? 'none') === accessory
+        "
         :shape="p.shape"
         :color="p.color"
         :expression="p.expression"
+        :accessory="p.accessory ?? 'none'"
         :frozen-at="PREVIEW_AT"
         @click="applyPreset(p)"
       />
@@ -199,6 +227,22 @@ async function share() {
           :style="{ background: c.hex }"
         />
       </button>
+    </div>
+
+    <h2 class="mt-5 text-sm font-semibold">{{ t('panel.accessory') }}</h2>
+    <div class="mt-2 grid grid-cols-4 gap-1.5">
+      <BotTile
+        v-for="a in ACCESSORIES"
+        :key="a.id"
+        :label="t(`accessories.${a.id}`)"
+        :selected="a.id === accessory"
+        :shape="shape"
+        :color="color"
+        :expression="expression"
+        :accessory="a.id"
+        :frozen-at="PREVIEW_AT"
+        @click="accessory = a.id"
+      />
     </div>
   </div>
 </template>

@@ -193,6 +193,28 @@ const muted = ref<ViewId | null>(null)
           {{ t('rail.party') }}
         </span>
       </li>
+      <!-- La scene : une page a part (`stage.html`), l'avatar seul en plein
+           ecran. Un lien, comme le chat et la fete. -->
+      <li class="group relative">
+        <a
+          href="stage.html"
+          class="peer flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl text-[var(--muted)] transition hover:bg-black/5 hover:text-[var(--ink)]"
+          :aria-label="t('rail.stage')"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="5" width="18" height="14" rx="3" />
+              <circle cx="12" cy="12" r="3.2" fill="currentColor" stroke="none" />
+            </g>
+          </svg>
+        </a>
+        <span
+          class="pointer-events-none absolute top-full left-1/2 z-10 mt-2 -translate-x-1/2 rounded-lg bg-[var(--ink)] px-2.5 py-1.5 text-xs whitespace-nowrap text-[var(--paper)] opacity-0 transition peer-focus-visible:opacity-100 group-hover:opacity-100 lg:top-1/2 lg:left-full lg:mt-0 lg:ml-2 lg:-translate-y-1/2 lg:translate-x-1 lg:peer-focus-visible:translate-x-0 lg:group-hover:translate-x-0"
+          role="tooltip"
+        >
+          {{ t('rail.stage') }}
+        </span>
+      </li>
     </ul>
   </nav>
 </template>

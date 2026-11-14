@@ -55,6 +55,7 @@ import {
 } from '@/bot/cycles'
 import { DEFAULT_EXPRESSION, EXPRESSION_BY_ID } from '@/bot/expressions'
 import { COLOR_BY_ID, DEFAULT_COLOR, DEFAULT_SHAPE, SHAPE_BY_ID } from '@/bot/skins'
+import { accessoryOrNull } from '@/ui/accessories'
 import { POSES, SEQUENCE, STATES, type StateId } from '@/bot/states'
 
 /**
@@ -71,11 +72,17 @@ function readHash() {
   // Meme regle : chaque morceau doit exister dans le catalogue, sinon rien.
   const parts = (params.get('avatar') ?? '').split('.')
   const avatar =
-    parts.length === 3 &&
+    (parts.length === 3 || parts.length === 4) &&
     SHAPE_BY_ID.has(parts[0]!) &&
     COLOR_BY_ID.has(parts[1]!) &&
-    EXPRESSION_BY_ID.has(parts[2]!)
-      ? { shape: parts[0]!, color: parts[1]!, expression: parts[2]! }
+    EXPRESSION_BY_ID.has(parts[2]!) &&
+    (parts.length === 3 || accessoryOrNull(parts[3]!) !== null)
+      ? {
+          shape: parts[0]!,
+          color: parts[1]!,
+          expression: parts[2]!,
+          accessory: parts.length === 4 ? parts[3]! : 'none'
+        }
       : null
   return {
     state: known ? asked! : 'idle',
@@ -454,6 +461,7 @@ const color = ref(stored('couleur', DEFAULT_COLOR, (v) => COLOR_BY_ID.has(v)))
 const expression = ref(
   stored('expression', DEFAULT_EXPRESSION, (v) => EXPRESSION_BY_ID.has(v))
 )
+const accessory = ref(stored('accessoire', 'none', (v) => accessoryOrNull(v) !== null))
 
 // Un lien de partage prime sur le stockage : c'est la combinaison de celui
 // qui envoie, et les watchers ci-dessous la rangent comme un choix normal.
@@ -461,11 +469,13 @@ if (initial.avatar) {
   shape.value = initial.avatar.shape
   color.value = initial.avatar.color
   expression.value = initial.avatar.expression
+  accessory.value = initial.avatar.accessory
 }
 
 watch(shape, (v) => ecris('forme', v))
 watch(color, (v) => ecris('couleur', v))
 watch(expression, (v) => ecris('expression', v))
+watch(accessory, (v) => ecris('accessoire', v))
 
 /**
  * Nom du produit, en capitales pour le grand mot du pied de page. PAS traduit —
@@ -891,6 +901,7 @@ watch(
             :shape="forme"
             :color="color"
             :expression="humeur ?? expression"
+            :accessory="accessory"
             :follow="view === 'reglages'"
             :gaze="intro ? INTRO_GAZE : null"
           />
@@ -991,6 +1002,7 @@ watch(
             v-model:shape="shape"
             v-model:color="color"
             v-model:expression="expression"
+            v-model:accessory="accessory"
           />
         </template>
       </aside>

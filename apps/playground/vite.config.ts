@@ -27,7 +27,8 @@ export default defineConfig({
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         chat: fileURLToPath(new URL('./chat.html', import.meta.url)),
-        party: fileURLToPath(new URL('./party.html', import.meta.url))
+        party: fileURLToPath(new URL('./party.html', import.meta.url)),
+        stage: fileURLToPath(new URL('./stage.html', import.meta.url))
       }
     }
   }

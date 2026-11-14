@@ -35,6 +35,18 @@ export default {
     settings: 'Réglages',
     chat: 'Démo chat',
     party: 'Fête'
+,
+    stage: 'Scène'
+  },
+
+  accessories: {
+    none: 'Aucun',
+    cap: 'Casquette',
+    crown: 'Couronne',
+    party: 'Chapeau de fête',
+    bow: 'Nœud',
+    glasses: 'Lunettes',
+    shades: 'Lunettes de soleil'
   },
 
   panel: {
@@ -47,6 +59,7 @@ export default {
     shape: 'Forme',
     expression: 'Expression',
     color: 'Couleur',
+    accessory: 'Accessoire',
     random: 'Aléatoire',
     presets: 'Préréglages',
     cute: 'Mignon',

@@ -5,6 +5,7 @@ import { BotEngine, type BotFrame } from '@/bot/engine'
 import { clamp, easings } from '@/bot/math'
 import { t } from '@/i18n'
 import { lookTarget, TURN_TIME, type GazeScript } from '@/ui/gaze'
+import { accessoryMarkup, accessoryOrNull } from '@/ui/accessories'
 import {
   DEFAULT_EXPRESSION,
   EXPRESSION_BY_ID
@@ -29,6 +30,8 @@ const props = withDefaults(
     color?: string
     /** identifiant d'expression de repos du personnalisateur */
     expression?: string
+    /** accessoire du personnalisateur (`@/ui/accessories`), dessine par-dessus le corps */
+    accessory?: string
     /** couleur du fond, utilisee pour la brume de profondeur des particules */
     paper?: string
     /**
@@ -61,6 +64,7 @@ const props = withDefaults(
     shape: DEFAULT_SHAPE,
     color: DEFAULT_COLOR,
     expression: DEFAULT_EXPRESSION,
+    accessory: 'none',
     paper: '#f9f9f9',
     frozenAt: undefined,
     cycle: () => defaultCycle().blocks,
@@ -90,6 +94,20 @@ const VB = DEMI_VIEWBOX
 const shapeRadii = computed(() => SHAPE_BY_ID.get(props.shape)?.radii ?? null)
 const ink = computed(() => COLOR_BY_ID.get(props.color)?.hex ?? '#0a0a0c')
 const expression = computed(() => EXPRESSION_BY_ID.get(props.expression) ?? null)
+
+/**
+ * Accessoire dessine par-dessus le corps. La geometrie vit dans
+ * `@/ui/accessories` (fonction pure de l'image) ; ici on ne fait que la
+ * brancher — et dire si le visage affiche est celui de repos, seul cas ou
+ * les lunettes ont un sens (ailleurs les yeux SONT l'animation).
+ */
+const accessorySvg = computed(() => {
+  const id = accessoryOrNull(props.accessory)
+  if (!id || id === 'none') return ''
+  return accessoryMarkup(frame.value, id, {
+    eyesVisible: STATE_BY_ID.get(state.value)?.baseFace === true
+  })
+})
 
 const engine = new BotEngine(R, state.value, shapeRadii.value, expression.value)
 const frame = shallowRef<BotFrame>(engine.sample(props.frozenAt ?? 0))
@@ -613,5 +631,8 @@ function dotAttrs(dot: BotFrame['dots'][number]) {
         :opacity="arc.opacity"
       />
     </g>
+
+    <!-- accessoire du personnalisateur : par-dessus tout, ancre sur l'image -->
+    <g v-if="accessorySvg" v-html="accessorySvg" />
   </svg>
 </template>

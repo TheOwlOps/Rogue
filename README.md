@@ -7,6 +7,7 @@
 
 [![▶ Open the studio](https://img.shields.io/badge/▶_Open_the_studio-3b93f0?style=for-the-badge)](https://theowlops.github.io/Rogue/)
 [![💬 Chat with it](https://img.shields.io/badge/💬_Chat_with_it-0fa36b?style=for-the-badge)](https://theowlops.github.io/Rogue/chat.html)
+[![🎭 Put it on stage](https://img.shields.io/badge/🎭_Put_it_on_stage-7c5cd6?style=for-the-badge)](https://theowlops.github.io/Rogue/stage.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 <img src="docs/demo.gif" alt="The Rogue avatar in action: the galaxy state in the studio, the Avatar Party floor, the full state board, and a live chat where the bot thinks, works, types and celebrates" width="920" />
@@ -23,19 +24,21 @@
 
 In the first minute you can:
 
-- 🎨 **Dress your bot** — 20 shapes, 52 faces, 36 colours, mixed freely (every combo is eye-safe, machine-verified)
+- 🎨 **Dress your bot** — 20 shapes, 52 faces, 36 colours, mixed freely (every combo is eye-safe, machine-verified) — then crown it: caps, crowns, party hats, bows, glasses and shades on top
 - 👆 **Tap a preset** — 36 ready-made characters: Classic, Cosmos, Candy, Sakura, Lava, Panda, Cyber, Ghost… plus a whole **Cute** shelf 🧸 — Mochi, Pudding, Cupcake, Boba, Bunny, Momo…
 - 🎲 **Hit Random** until one makes you smile, then **Copy share link** and send that exact look to a friend
 - 🎬 **Open Animations** — all 66 animations on a timeline; build your own montage, export it as a GIF
 - 💬 **Open the [chat demo](https://theowlops.github.io/Rogue/chat.html)** — send the bot a message and watch it think → work → type → celebrate; or drive it with the phase chips
 - 🖼️ **See everything at once** — [the state board](https://theowlops.github.io/Rogue/#planche) with all 66 states side by side
 - 🎉 **Crash the [Avatar Party](https://theowlops.github.io/Rogue/party.html)** — a dance floor of up to 24 bots, each with a random face and its own groove; click one to make it celebrate, conduct the whole floor with Dance / Chill / Celebrate
+- 🎭 **Put yours on the [Stage](https://theowlops.github.io/Rogue/stage.html)** — one avatar, fullscreen, alive as a living wallpaper: it watches your cursor, drifts through calm animations and celebrates when you poke it. Your studio share link + `stage.html` puts YOUR bot up there
 
 ## What makes it tick
 
 - **Pure SVG, zero dependencies** — the face is computed fresh every frame by a clock-free TypeScript engine: same instant in, same pixels out, anywhere
 - **Eyes are real holes** pierced through the body, so they clip at the silhouette's edge exactly like the reference avatar this engine was measured from
-- **Built for chat** — drive it by what your bot is *doing*: `idle`, `listening`, `thinking`, `working`, `typing`, `speaking`, `happy`, `celebrating`, `error`, `sleeping`. Busy phases play *cycles* of animations, never one pinned gesture
+- **Built for chat** — drive it by what your bot is *doing*: `idle`, `listening`, `thinking`, `working`, `typing`, `speaking`, `happy`, `celebrating`, `error`, `sleeping`. Busy phases play *cycles* of animations, never one pinned gesture — and every phase wears its own face: thinking looks pensive, typing looks focused, celebrating cracks up
+- **It watches your visitor** — `followPointer()` turns the head toward the cursor while the bot rests, in the studio, the chat demo and the stage
 - **Deterministic** — freeze any state at any instant for thumbnails, exports or pixel-exact tests
 
 The animations, in short: emotions (laugh, cry, love, ponder, sneeze…), motion (dance, spin, flip, float…), shape morphs (star, heart, planet, gear…), effects (fireworks, galaxy, confetti, portal…) and characters (rocket, UFO, robot, ghost…). The full catalogue lives in the studio — go look at it moving, not in a table.
@@ -50,6 +53,7 @@ avatar.setPhase('working')   // tools running
 avatar.setPhase('typing')    // answer streaming
 avatar.setPhase('idle')      // done
 avatar.setState('galaxy')    // or any of the 67 states, directly
+avatar.followPointer()       // at rest, the head watches the visitor's cursor
 ```
 
 React and Vue wrappers ship too (`<RogueAvatar phase="working" />`). Packages: [`avatar-core`](packages/avatar-core) · [`avatar-react`](packages/avatar-react) · [`avatar-vue`](packages/avatar-vue) · studio in [`apps/playground`](apps/playground).
